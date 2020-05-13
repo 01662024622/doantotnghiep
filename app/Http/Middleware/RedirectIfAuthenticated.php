@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Redirect;
 
 class RedirectIfAuthenticated
 {
@@ -18,8 +19,20 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+
         if (Auth::guard($guard)->check()) {
-            return redirect(RouteServiceProvider::HOME);
+            if(Auth::user()->role == 'blocker')
+            {
+                // logout the user
+                Auth::logout();
+
+                // redirect back to the previous page with errors
+                return Redirect::to('login')->with('error', 'You are not allowed to login, because you do not have the right role!');
+            }
+            
+        return $next($request);
+            // return redirect(RouteServiceProvider::HOME);
+            
         }
 
         return $next($request);

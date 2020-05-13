@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Middleware;
+use Closure;
+use Illuminate\Support\Facades\Auth;
+use Redirect;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
@@ -18,4 +21,22 @@ class Authenticate extends Middleware
             return route('login');
         }
     }
+        public function handle($request, Closure $next, ...$guards)
+    {
+        if (Auth::guard()->check()) {
+            if(Auth::user()->role == 'blocker')
+            {
+                // logout the user
+                Auth::logout();
+
+                // redirect back to the previous page with errors
+                return Redirect::to('login')->with('error', 'You are not allowed to login, because you do not have the right role!');
+            }
+            
+        }
+        $this->authenticate($request, $guards);
+
+        return $next($request);
+    }
+
 }

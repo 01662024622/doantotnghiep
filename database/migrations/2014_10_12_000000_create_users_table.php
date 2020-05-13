@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('apartment_id');
-            $table->string('role')->default('customer');
+            $table->string('role')->default('blocker');
             $table->rememberToken();
             $table->timestamps();
         });

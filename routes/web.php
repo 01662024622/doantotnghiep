@@ -20,3 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('products', 'ProductController');
+
+
+
+Route::group(['prefix' => 'api/v1'], function() {
+
+    Route::get('product/table', 'DataBaseApi\DataTableController@product')->name('product.api.data');
+
+});
