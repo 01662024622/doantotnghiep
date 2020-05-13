@@ -22,7 +22,7 @@ var dataTable = $('#users-table').DataTable({
   { data: 'name', name: 'name' },
   { data: 'image', name: 'image' },
   { data: 'providor', name: 'providor' },
-  { data: 'created_date', name: 'created_date' },
+  { data: 'created_at', name: 'created_at' },
   { data: 'action', name: 'action' },
   ]
 });
@@ -99,56 +99,22 @@ $("#edit-form").submit(function(e){
       required: true,
       minlength: 5
     },
-    description: {
-      required: true,
-    },
-    sale_cost:{
-      number:true,
-      minlength:1,
-      maxlength:10   
-    },
-    quantity:{
-      number:true,
-      minlength:1,
-      maxlength:4   
-    },
-    origin_cost:{
-      number:true,
-      minlength:1,
-      maxlength:10   
-    },
-    address: {
-      required: true,
-      minlength: 5
+    
+    description:{
+      required:true,
+      minlength:10,
     },
   },
   messages: {
     name: {
-      required: "Enter Your Name",
-      minlength: "leaste 5 word"
-    },
-    description: {
-      required: "Write Descripton, plz",
-    },
-    sale_cost:{
-      number:"This is not Number Phone",
-      minlength:"This is not Number Phone",
-      maxlength:"This is not Number Phone"
-    },
-    quantity:{
-      number:"This is not number",
-      minlength:"This is incorect",
-      maxlength:"This is incorect"
-    },
-    origin_cost:{
-      number:"This is not Number Phone",
-      minlength:"This is not Number Phone",
-      maxlength:"This is not Number Phone"
-    },
-    address: {
-      required: "Enter Your Address",
+      required: "Enter your name",
       minlength: "Leaste 5 word"
     },
+    description: {
+      required: "Write descripton, plz",
+      minlength: "Write descripton, plz",
+    },
+    
   },
   submitHandler: function(form) {
     var content = CKEDITOR.instances.econtent.getData();
@@ -223,24 +189,24 @@ $("#edit-form").submit(function(e){
       // Delete function
       function alDelete(id){
         swal({
-          title: "Bạn có chắc muốn xóa?",
+          title: "Are you sure to remove?",
         // text: "Bạn sẽ không thể khôi phục lại bản ghi này!!",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",  
-        cancelButtonText: "Không",
-        confirmButtonText: "Có",
+        cancelButtonText: "No",
+        confirmButtonText: "Yes",
         // closeOnConfirm: false,
       },
       function(isConfirm) {
         if (isConfirm) {
           $.ajax({
             type: "delete",
-            url: "product/"+id,
+            url: "products/"+id,
             success: function(res)
             {
               if(!res.error) {
-                toastr.success('Xóa thành công!');
+                toastr.success('Success!');
                 $('#product-'+id).remove();
                   //setTimeout(function () {
                     //location.reload();
@@ -252,29 +218,10 @@ $("#edit-form").submit(function(e){
               }
             });
         } else {
-          toastr.error("Thao tác xóa đã bị huỷ bỏ!");
+          toastr.error("Cancel!");
         }
       });
       };
-      function getReason(id){
-        $.ajax({
-          type: "post",
-          url: "",
-          success: function(response)
-          {
-            console.log(response);
-            if (response.notice==null) {
-              $("p#reason").append("Admin Không Để Lại Lý Do");
-              console.log('test');
-            }else{
-              $("p#reason").append(response.notice);
-            }
-          },
-          error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(thrownError);
-          }
-        })
-      }
 
       $(function(){
         var viewModel = {};

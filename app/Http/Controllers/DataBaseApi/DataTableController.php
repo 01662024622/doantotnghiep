@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
 use App\Product;
+use App\User;
 
 class DataTableController extends Controller
 {
@@ -23,6 +24,7 @@ class DataTableController extends Controller
 
 	public function product(){
 		$products = $this->getByRole(Product::select('products.*'));
+		// $products->user;
 		return Datatables::of($products)
 		->addColumn('action', function ($product) {
 			return'
@@ -37,11 +39,8 @@ class DataTableController extends Controller
 
 		})
 		->addColumn('providor', function ($product) {
-			return'
-			<button type="button" class="btn btn-xs btn-info" data-toggle="modal" href="#showProduct"><i class="fa fa-eye" aria-hidden="true"></i></button>
-			<button type="button" class="btn btn-xs btn-warning"data-toggle="modal" onclick="getInfo('.$product['id'].')" href="#edit-modal"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-			<button type="button" class="btn btn-xs btn-danger" onclick="alDelete('.$product['id'].')"><i class="fa fa-trash" aria-hidden="true"></i></button>
-			';
+			$user = User::find($product['user_id']);
+			return $user->name . '-'. $user->phone;
 
 		})
 		->setRowId('product-{{$id}}')

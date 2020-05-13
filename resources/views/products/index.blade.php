@@ -35,11 +35,9 @@
     <tr>
       <th>ID</th>
       <th>Name</th>
-      <th>Origin Cost</th>
-      <th>Sale Cost</th>
-      <th>Category</th>
-      <th>Vendor</th>
-      <th>Quantity</th>
+      <th>Image</th>
+      <th>Providor</th>
+      <th>created_date</th>
       <th>Action</th>
     </tr>
   </thead>

@@ -17,10 +17,10 @@
 
   <!-- Custom styles for this template-->
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
-  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
   @yield('css')
 
 </head>
@@ -389,8 +389,6 @@
             </div>
           </div>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
         <!-- Bootstrap core JavaScript-->
         <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
         <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -404,6 +402,8 @@
         <script src="{{asset('js/jquery.validate.min.js')}}" type="text/javascript"></script>
         <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
         
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
         @yield('js')
       </body>
 
