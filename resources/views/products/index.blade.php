@@ -37,7 +37,8 @@
       <th>Name</th>
       <th>Image</th>
       <th>Providor</th>
-      <th>created_date</th>
+      <th>Created Date</th>
+      <th>Status</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -98,132 +99,6 @@
   </div>
 </div>
 </div>
-
-<!-- modal add product -->
-{{-- <div class="modal fade" id="add-modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-
-      <form id="add-form" action="{{asset('admin/product/store')}}" method="POST" >
-        <div class="half-form">
-         <div class="form-group">
-          <label for="">Name</label>
-          <input type="text" class="form-control" id="name" placeholder="Input field">
-        </div>
-        <div class="form-group">
-          <label for="">Origin Cost</label>
-          <input type="text" class="form-control" id="origin_cost" placeholder="Input field">
-        </div>
-        <div class="form-group">
-          <label for="">Sale Cost</label>
-          <input type="text" class="form-control" id="sale_cost" placeholder="Input field">
-        </div>
-        <div class="form-group">
-          <label for="">Quantity</label>
-          <input type="text" id="quantity" class="form-control" name="quantity" />
-        </div>
-        <div class="form-group">
-          <label for="">Category</label>
-          <select name="category" id="category_id" class="form-control" >
-            @foreach ($categories as $category)
-            <option value="{{$category->id}}">{{$category->name}}</option>}
-            @endforeach
-          </select>
-        </div>
-        <div id="image_preview"></div>
-        <div class="form-group">
-          <label for="">Images</label>
-          <input type="file" id="files" class="form-control" name="file[]" multiple />
-        </div>
-
-      </div>                       
-      <div class="half-form">
-        <div class="form-group">
-          <label for="">Descripton</label>
-          <textarea name="description" id="description" class="form-control"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="">Content</label>
-          <textarea name="content"></textarea>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-    </form>
-  </div>
-</div>
-</div>
-edit product modal 
-
-<div class="modal fade" id="edit-modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <form id="edit-form" action="{{asset('admin/product/update')}}" method="POST">
-      <div class="half-form">
-       <div class="form-group">
-        <label for="">Name</label>
-        <input type="text" class="form-control" id="ename" name="name" placeholder="Input field" />
-      </div>
-      <div class="form-group">
-        <label for="">Origin Cost</label>
-        <input type="text" class="form-control" id="eorigin_cost" name="origin_cost" placeholder="Input field" />
-      </div>
-      <div class="form-group">
-        <label for="">Sale Cost</label>
-        <input type="text" class="form-control" id="esale_cost" name="sale_cost" placeholder="Input field" />
-      </div>
-      <div class="form-group">
-        <label for="">Quantity</label>
-        <input type="text" id="equantity" class="form-control" name="quantity" />
-      </div>
-      <div class="form-group">
-        <label for="">Category</label>
-        <select name="category" id="ecategory_id" class="form-control" >
-          @foreach ($categories as $category)
-          <option value="{{$category->id}}">{{$category->name}}</option>
-          @endforeach
-        </select>
-      </div>
-      <div id="eimage_preview">
-
-      </div>
-      <div class="form-group">
-        <label for="">Images</label>
-        <input type="file" id="efiles" class="form-control" name="efiles[]" multiple />
-      </div>
-
-    </div>                       
-    <div class="half-form">
-      <div class="form-group">
-        <label for="">Descripton</label>
-        <textarea name="description" id="edescription"class="form-control"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="">Content</label>
-        <textarea name="econtent"></textarea>
-      </div>
-    </div>
-    <input type="hidden" id="eid" name="id">
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      <button type="submit"  class="btn btn-primary">Save changes</button>
-    </div>
-  </form>
-  </div>
-</div>
-</div>
---}}
 
 @endsection
 

@@ -1,27 +1,19 @@
-  CKEDITOR.replace( 'description' );
-  // CKEDITOR.replace( 'econtent' );
-  CKEDITOR.editorConfig = function( config ) {
-        // Define changes to default configuration here. For example:
-        // config.language = 'fr';
-        // config.uiColor = '#AADC6E';
-        config.width = '400px';
-      };
-      $(function() {
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
+
+$(function() {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
 //____________________________________________________________________________________________________
 var dataTable = $('#users-table').DataTable({
   processing: true,
   serverSide: true,
-  ajax: "/api/v1/product/table",
+  ajax: "/api/v1/category/table",
   columns: [
   { data: 'id', name: 'id' },
   { data: 'name', name: 'name' },
-  { data: 'image', name: 'image' },
-  { data: 'providor', name: 'providor' },
+  { data: 'parent_id', name: 'parent_id' },
   { data: 'created_at', name: 'created_at' },
   { data: 'status', name: 'status' },
   { data: 'action', name: 'action' },
@@ -37,38 +29,18 @@ $("#add-form").submit(function(e){
     name: {
       required: true,
       minlength: 5
-    },
-    
-    image:{
-      required:true,
-    },
-    description:{
-      required:true,
-      minlength:10,
-    },
+    }
   },
   messages: {
     name: {
       required: "Enter your name",
       minlength: "Leaste 5 word"
-    },
-    image: {
-      required: "Enter your image",
-      minlength: "Leaste 5 word"
-    },
-    description: {
-      required: "Write descripton, plz",
-      minlength: "Write descripton, plz",
-    },
+    }
     
   },
   submitHandler: function(form) {
+
     var formData = new FormData(form);
-    var description = CKEDITOR.instances.description.getData();
-
-    formData.set('description',description);
-    formData.append('image',$('#image').files);
-
     $.ajax({
       url: form.action,
       type: form.method,
@@ -89,71 +61,30 @@ $("#add-form").submit(function(e){
   });
   }
 });
-
-
   // get data for form update
-  function getInfo(id) {
-    console.log(id);
-        // $('#editPost').modal('show');
-        $.ajax({
-          type: "GET",
-          url: "{{ asset('/products') }}/"+id,
-          success: function(response)
-          {
-            CKEDITOR.instances.edescription.setData(response.description);
-            $('#ename').val(response.name);
-            $('#ecategory_id').val(response.category_id);
-            $('#equantity').val(response.quantity);
-            $('#eid').val(response.id);
-            for (var i = 0; i < response.images.length; i++) {
-             html="<img src='"+response.images[i].link+"' class='img-responsive img' style='display:inline-block;width:50px'>";
-             $('#eimage_preview').append(html);
-           }         
-         },
-         error: function (xhr, ajaxOptions, thrownError) {
-          toastr.error(thrownError);
-        }
-      });
+  $("#edit-form").submit(function(e){
+    e.preventDefault();
+  }).validate({
+    rules: {
+      name: {
+        required: true,
+        minlength: 5
+      }
+    },
+    messages: {
+      name: {
+        required: "Enter your name",
+        minlength: "Leaste 5 word"
       }
 
-})
-//____________________________________________________________________________________________________
-$("#edit-form").submit(function(e){
-  e.preventDefault();
-}).validate({
-  rules: {
-    name: {
-      required: true,
-      minlength: 5
     },
-    
-    description:{
-      required:true,
-      minlength:10,
-    },
-  },
-  messages: {
-    name: {
-      required: "Enter your name",
-      minlength: "Leaste 5 word"
-    },
-    description: {
-      required: "Write descripton, plz",
-      minlength: "Write descripton, plz",
-    },
-    
-  },
-  submitHandler: function(form) {
-   var formData = new FormData(form);
-    var description = CKEDITOR.instances.edescription.getData();
-
-    formData.set('description',description);
-    formData.append('image',$('#eimage').files);
-
-    $.ajax({
-      url: form.action,
+    submitHandler: function(form) {
+      var updateData = new FormData(form);
+     $.ajax({
+      url: form.action+"/"+$('#eid').val(),
       type: form.method,
-      data: updateForm,
+      data: updateData,
+      headers: {"Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE"},
       dataType:'json',
       async:false,
       processData: false,
@@ -168,8 +99,8 @@ $("#edit-form").submit(function(e){
       toastr.error(thrownError);
     },       
   });
-  }
-});
+   }
+ });
 
 //____________________________________________________________________________________________________
 
@@ -191,12 +122,12 @@ $("#edit-form").submit(function(e){
         if (isConfirm) {
           $.ajax({
             type: "delete",
-            url: "products/"+id,
+            url: "categories/"+id,
             success: function(res)
             {
               if(!res.error) {
                 toastr.success('Success!');
-                $('#product-'+id).remove();
+                $('#data-'+id).remove();
                   //setTimeout(function () {
                     //location.reload();
                   //}, 1000)
@@ -233,3 +164,27 @@ $("#edit-form").submit(function(e){
         };
         ko.applyBindings(viewModel);
       });
+
+
+
+
+    })
+//_________
+
+function getInfo(id) {
+  console.log(id);
+        // $('#editPost').modal('show');
+        $.ajax({
+          type: "GET",
+          url: "/categories/"+id,
+          success: function(response)
+          {
+            $('#ename').val(response.name);
+            $('#eparent_id').val(response.parent_id);
+            $('#eid').val(response.id);    
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+            toastr.error(thrownError);
+          }
+        });
+      }

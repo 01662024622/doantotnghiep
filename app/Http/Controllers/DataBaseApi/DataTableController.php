@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
 use App\Product;
+use App\Category;
 use App\User;
 
 class DataTableController extends Controller
@@ -28,14 +29,28 @@ class DataTableController extends Controller
 		return Datatables::of($products)
 		->addColumn('action', function ($product) {
 			return'
-			<button type="button" class="btn btn-xs btn-info" data-toggle="modal" href="#showProduct"><i class="fa fa-eye" aria-hidden="true"></i></button>
-			<button type="button" class="btn btn-xs btn-warning"data-toggle="modal" onclick="getInfo('.$product['id'].')" href="#edit-modal"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+			<button type="button" class="btn btn-xs btn-warning"data-toggle="modal" onclick="getInfo('.$product['id'].')" href="#edit-modal"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button>
 			<button type="button" class="btn btn-xs btn-danger" onclick="alDelete('.$product['id'].')"><i class="fa fa-trash" aria-hidden="true"></i></button>
 			';
 
 		})
+
 		->editColumn('image', function ($product) {
 			return'<img src="'.$product['image'].'" class="image-product" />';
+
+		})
+
+		->editColumn('status', function ($product) {
+			if ($product['status']==0) {
+				return '<div class="custom-control custom-switch">
+				<input type="checkbox" class="custom-control-input" id="customSwitch1">
+				<label class="custom-control-label" for="customSwitch1"></label>
+				</div>';
+			}
+			return '<div class="custom-control custom-switch">
+			<input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+			<label class="custom-control-label" for="customSwitch1"></label>
+			</div>';
 
 		})
 		->addColumn('providor', function ($product) {
@@ -44,10 +59,48 @@ class DataTableController extends Controller
 
 		})
 		->setRowId('product-{{$id}}')
-		->rawColumns(['action','image'])
+		->rawColumns(['action','image','status'])
 		->make(true);
 	}
 
+
+
+	public function category(){
+		$data = Category::select('categories.*');
+		// $products->user;
+		return Datatables::of($data)
+		->addColumn('action', function ($dt) {
+			return'
+			<button type="button" class="btn btn-xs btn-warning"data-toggle="modal" onclick="getInfo('.$dt['id'].')" href="#edit-modal"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button>
+			<button type="button" class="btn btn-xs btn-danger" onclick="alDelete('.$dt['id'].')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+			';
+
+		})
+		->addColumn('parent_id', function ($dt) {
+			$data = Category::find($dt['parent_id']);
+			if ($data==null) {
+				return 'Main';
+			}
+			return $data->name;
+
+		})
+		->editColumn('status', function ($dt) {
+			if ($dt['status']==0) {
+				return '<div class="custom-control custom-switch">
+				<input type="checkbox" class="custom-control-input" id="customSwitch1">
+				<label class="custom-control-label" for="customSwitch1"></label>
+				</div>';
+			}
+			return '<div class="custom-control custom-switch">
+			<input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+			<label class="custom-control-label" for="customSwitch1"></label>
+			</div>';
+
+		})
+		->setRowId('data-{{$id}}')
+		->rawColumns(['action','image','status'])
+		->make(true);
+	}
 
 	// check is role for data return
 	protected function getByRole($data){
@@ -57,3 +110,9 @@ class DataTableController extends Controller
 		return $data;
 	}
 }
+
+//  '<div class="custom-control custom-switch">
+//   <label style="margin-right: 40px;">Off</label>
+//   <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+//   <label class="custom-control-label" for="customSwitch1">On</label>
+// </div>';
