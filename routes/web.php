@@ -24,15 +24,23 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('products', 'ProductController');
 
 Route::resource('categories', 'CategoryController');
+Route::resource('rates', 'RatingController');
+Route::resource('consts', 'ConstController');
 
 Route::post('categories/{id}', 'CategoryController@update');
 Route::post('products/{id}', 'ProductController@update');
+
+Route::view('dashboard', 'ai.chart');
+Route::get('chart/avg', 'DataBaseApiChart@average');
+Route::get('pie/avg', 'DataBaseApiChart@average2');
 
 
 
 Route::group(['prefix' => 'api/v1'], function() {
 
     Route::get('product/table', 'DataBaseApi\DataTableController@product')->name('product.api.data');
+    Route::get('rating/table', 'DataBaseApi\DataTableController@rating')->name('rating.api.data');
+    Route::get('consts/table', 'DataBaseApi\DataTableController@consts')->name('consts.api.data');
     Route::get('category/table', 'DataBaseApi\DataTableController@category')->name('category.api.data');
 
 });

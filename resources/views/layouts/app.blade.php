@@ -46,7 +46,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
         </li>
@@ -121,16 +121,16 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-          <a class="nav-link" href="charts.html">
+          <a class="nav-link" href="/consts">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
+            <span>Const</span></a>
           </li>
 
           <!-- Nav Item - Tables -->
           <li class="nav-item">
-            <a class="nav-link" href="tables.html">
+            <a class="nav-link" href="/rates">
               <i class="fas fa-fw fa-table"></i>
-              <span>Tables</span></a>
+              <span>Rating</span></a>
             </li>
 
             <!-- Divider -->
@@ -398,6 +398,13 @@
 
         <!-- Custom scripts for all pages-->
         <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+        <!-- Page level plugins -->
+        <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
+        <script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
+        <script src="{{asset('js/demo/chart-bar-demo.js')}}"></script>
 
         <script src="{{asset('js/jquery.validate.min.js')}}" type="text/javascript"></script>
         <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
