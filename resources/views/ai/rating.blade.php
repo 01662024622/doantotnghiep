@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('css')
-<link rel="stylesheet" href="https://rawgit.com/adrotec/knockout-file-bindings/master/knockout-file-bindings.css">
 
 <style type="text/css" media="screen">
   #name-error{
@@ -222,7 +221,5 @@
 
 @section('js')
 <script src="{{ asset('js/main/rating.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
-<script src="https://rawgit.com/adrotec/knockout-file-bindings/master/knockout-file-bindings.js"></script>
 
 @endsection

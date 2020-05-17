@@ -16,7 +16,9 @@ $.ajax({
     var extracted = response.extracted.reduce(function(a, b){
         return a + b*b;
     }, 0);
-    var expo= extracted/(extracted+reliability/40);
+    var expo= extracted/(extracted+reliability);
+    console.log(extracted);
+    console.log(reliability);
     $('#sumall').text(expo*10);
 
     data=response.extracted

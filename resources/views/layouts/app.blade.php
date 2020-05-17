@@ -55,12 +55,12 @@
         <hr class="sidebar-divider">
 
         <!-- Heading -->
-        <div class="sidebar-heading">
+        {{-- <div class="sidebar-heading">
           Interface
-        </div>
+        </div> --}}
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+       {{--  <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
             <span>Components</span>
@@ -72,10 +72,10 @@
               <a class="collapse-item" href="cards.html">Cards</a>
             </div>
           </div>
-        </li>
+        </li> --}}
 
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-wrench"></i>
             <span>Utilities</span>
@@ -89,18 +89,18 @@
               <a class="collapse-item" href="utilities-other.html">Other</a>
             </div>
           </div>
-        </li>
+        </li> --}}
 
         <!-- Divider -->
-        <hr class="sidebar-divider">
+        {{-- <hr class="sidebar-divider"> --}}
 
         <!-- Heading -->
         <div class="sidebar-heading">
-          Addons
+          Value
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item active">
+{{--         <li class="nav-item active">
           <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
             <span>Pages</span>
@@ -118,7 +118,7 @@
             </div>
           </div>
         </li>
-
+        --}}
         <!-- Nav Item - Charts -->
         <li class="nav-item">
           <a class="nav-link" href="/consts">
@@ -303,7 +303,7 @@
                   <!-- Nav Item - User Information -->
                   <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                      <span class="mr-2 d-none d-lg-inline text-gray-600 small">Thang VM</span>
                       <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                     </a>
                     <!-- Dropdown - User Information -->
@@ -402,15 +402,13 @@
         <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
 
         <!-- Page level custom scripts -->
-        <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
-        <script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
-        <script src="{{asset('js/demo/chart-bar-demo.js')}}"></script>
+
 
         <script src="{{asset('js/jquery.validate.min.js')}}" type="text/javascript"></script>
         <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+        
         @yield('js')
       </body>
 

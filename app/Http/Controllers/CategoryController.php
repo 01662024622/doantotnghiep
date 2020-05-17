@@ -46,9 +46,9 @@ class CategoryController extends Controller
 		return $respon;
 	}
 
-	public function manageUser($slug){
+	public function post($slug){
 
-		$products= Product::where('slug',$slug)->first();
+		$products= Category::where('slug',$slug)->first();
 
 	}
 }

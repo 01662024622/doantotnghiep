@@ -66,6 +66,7 @@ class DataBaseApiChart extends Controller
 		$user=($sumUser*$sumUser)/(($sumUser*$sumUser)+($sumSevqualCont/1300));
 		$ben=($sumBenefit*$sumBenefit)/(($sumBenefit*$sumBenefit)+($sumBenefitCont/1300));
 		$respon['reliability']=[$sev*10,$inf*10,$user*10,$ben*10];
+		// $respon['reliability']=[$sev*10,$inf*10,$user*10,$ben*10];
 
 		for ($i = 0; $i < count($sevqual); $i++) {
 			$sumSevqual=+($rate[$sevqual[$i]]*$rate[$sevqual[$i]]);

@@ -23,7 +23,7 @@ class ProductController extends Controller
 	}
 
 	public function index(){
-		$categories= Category::get();
+		$categories= Category::where('status',1)->get();
 		return view('products.index',['categories'=>$categories]);
 	}
 
@@ -31,7 +31,6 @@ class ProductController extends Controller
 	public function show($id){
 		$product=Product::find($id);
         // $categories=Category::orderBy('id','DESC')->get();
-		$product['images']=Gallary_image::where('product_id',$id)->get();
 		return response()->json($product);
 	}
 	public function destroy($id){
@@ -42,16 +41,23 @@ class ProductController extends Controller
 	}
 
 	public function store(ProductRequest $request) {
-		$data=$request->only(['name', 'description']);
+		$data=$request->only(['name', 'description','category_id']);
 		$data['user_id']=Auth::id();
 		$data['slug']=Str::slug($data['name'], '-').time();
 
-		$image=$request->only(['image']);
 
-		$imageName = time().'.'.$request->image->extension();  
-   
-        $request->image->move(public_path('images'), $imageName);
-        $data['image']='/images/'.$imageName;
+		if ($request->has('image')) {
+			$imageName = time().'.'.$request->image->extension();  
+
+			$request->image->move(public_path('images'), $imageName);
+			$data['image']='/images/'.$imageName;
+		}
+
+		if ($request->has('id')) {
+			$product=Product::find($request->id)->update($data);
+
+			return $product;
+		}
 		$product=Product::create($data);
 
 		return $product;

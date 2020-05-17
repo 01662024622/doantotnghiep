@@ -6,12 +6,11 @@
         // config.uiColor = '#AADC6E';
         config.width = '400px';
       };
-      $(function() {
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
 //____________________________________________________________________________________________________
 var dataTable = $('#users-table').DataTable({
   processing: true,
@@ -21,6 +20,7 @@ var dataTable = $('#users-table').DataTable({
   { data: 'id', name: 'id' },
   { data: 'name', name: 'name' },
   { data: 'image', name: 'image' },
+  { data: 'category_id', name: 'category_id' },
   { data: 'providor', name: 'providor' },
   { data: 'created_at', name: 'created_at' },
   { data: 'status', name: 'status' },
@@ -37,10 +37,6 @@ $("#add-form").submit(function(e){
     name: {
       required: true,
       minlength: 5
-    },
-    
-    image:{
-      required:true,
     },
     description:{
       required:true,
@@ -67,7 +63,12 @@ $("#add-form").submit(function(e){
     var description = CKEDITOR.instances.description.getData();
 
     formData.set('description',description);
-    formData.append('image',$('#image').files);
+    if ($('#image').val()=='') {
+      formData.delete('image');
+    }
+    if ($('#eid').val()=='') {
+      formData.delete('id');
+    }
 
     $.ajax({
       url: form.action,
@@ -97,79 +98,24 @@ $("#add-form").submit(function(e){
         // $('#editPost').modal('show');
         $.ajax({
           type: "GET",
-          url: "{{ asset('/products') }}/"+id,
+          url: "/products/"+id,
           success: function(response)
           {
-            CKEDITOR.instances.edescription.setData(response.description);
-            $('#ename').val(response.name);
-            $('#ecategory_id').val(response.category_id);
-            $('#equantity').val(response.quantity);
-            $('#eid').val(response.id);
-            for (var i = 0; i < response.images.length; i++) {
-             html="<img src='"+response.images[i].link+"' class='img-responsive img' style='display:inline-block;width:50px'>";
-             $('#eimage_preview').append(html);
-           }         
-         },
-         error: function (xhr, ajaxOptions, thrownError) {
-          toastr.error(thrownError);
-        }
-      });
+            CKEDITOR.instances.description.setData(response.description);
+            $('#name').val(response.name);
+            $('#category_id').val(response.category_id);
+            $('#quantity').val(response.quantity);
+            $('#eid').val(response.id);    
+            $('#imgImage').attr('src',response.image);
+            $('#imgImage').show();
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+            toastr.error(thrownError);
+          }
+        });
       }
 
-})
-//____________________________________________________________________________________________________
-$("#edit-form").submit(function(e){
-  e.preventDefault();
-}).validate({
-  rules: {
-    name: {
-      required: true,
-      minlength: 5
-    },
-    
-    description:{
-      required:true,
-      minlength:10,
-    },
-  },
-  messages: {
-    name: {
-      required: "Enter your name",
-      minlength: "Leaste 5 word"
-    },
-    description: {
-      required: "Write descripton, plz",
-      minlength: "Write descripton, plz",
-    },
-    
-  },
-  submitHandler: function(form) {
-   var formData = new FormData(form);
-    var description = CKEDITOR.instances.edescription.getData();
 
-    formData.set('description',description);
-    formData.append('image',$('#eimage').files);
-
-    $.ajax({
-      url: form.action,
-      type: form.method,
-      data: updateForm,
-      dataType:'json',
-      async:false,
-      processData: false,
-      contentType: false,
-      success: function(response) {
-       setTimeout(function () {
-         toastr.success('has been updated');
-       },1000);
-       $("#edit-modal").modal('hide');
-       dataTable.ajax.reload();
-     }, error: function (xhr, ajaxOptions, thrownError) {
-      toastr.error(thrownError);
-    },       
-  });
-  }
-});
 
 //____________________________________________________________________________________________________
 
@@ -233,3 +179,30 @@ $("#edit-form").submit(function(e){
         };
         ko.applyBindings(viewModel);
       });
+      function changeStatus(id) {
+        console.log(id);
+        // $('#editPost').modal('show');
+        $.ajax({
+          type: "GET",
+          url: "api/status/products/"+id,
+          success: function(response)
+          {
+          // location.reload();
+          
+          dataTable.ajax.reload();
+          toastr.success('has been updated');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          toastr.error(thrownError);
+        }
+      });
+      }
+
+      function clearForm(){
+        console.log('clear');
+        $('#add-form')[0].reset(); 
+        $('#eid').val(''); 
+        CKEDITOR.instances.description.setData('');
+
+            $('#imgImage').hide();
+      }

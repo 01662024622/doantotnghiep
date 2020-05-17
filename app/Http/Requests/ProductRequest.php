@@ -26,14 +26,14 @@ class ProductRequest extends FormRequest
         return [
         'name' => 'required|min:5',
         'description' => 'required',
-        'image' => 'required',
+        // 'image' => 'required',
     ];
     }
     public function message(){
          return [
             'name.required'         => 'The title is required ',
             'description.required'   => 'The description is required', 
-            'image.required'            => 'This is required',    
+            // 'image.required'            => 'This is required',    
     ];
     }
 }

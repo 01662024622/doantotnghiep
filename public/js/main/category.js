@@ -1,5 +1,4 @@
 
-$(function() {
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -80,27 +79,27 @@ $("#add-form").submit(function(e){
     },
     submitHandler: function(form) {
       var updateData = new FormData(form);
-     $.ajax({
-      url: form.action+"/"+$('#eid').val(),
-      type: form.method,
-      data: updateData,
-      headers: {"Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE"},
-      dataType:'json',
-      async:false,
-      processData: false,
-      contentType: false,
-      success: function(response) {
-       setTimeout(function () {
-         toastr.success('has been updated');
-       },1000);
-       $("#edit-modal").modal('hide');
-       dataTable.ajax.reload();
-     }, error: function (xhr, ajaxOptions, thrownError) {
-      toastr.error(thrownError);
-    },       
+      $.ajax({
+        url: form.action+"/"+$('#eid').val(),
+        type: form.method,
+        data: updateData,
+        headers: {"Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE"},
+        dataType:'json',
+        async:false,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+         setTimeout(function () {
+           toastr.success('has been updated');
+         },1000);
+         $("#edit-modal").modal('hide');
+         dataTable.ajax.reload();
+       }, error: function (xhr, ajaxOptions, thrownError) {
+        toastr.error(thrownError);
+      },       
+    });
+    }
   });
-   }
- });
 
 //____________________________________________________________________________________________________
 
@@ -168,7 +167,7 @@ $("#add-form").submit(function(e){
 
 
 
-    })
+    // })
 //_________
 
 function getInfo(id) {
@@ -182,6 +181,25 @@ function getInfo(id) {
             $('#ename').val(response.name);
             $('#eparent_id').val(response.parent_id);
             $('#eid').val(response.id);    
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+            toastr.error(thrownError);
+          }
+        });
+      }
+
+      function changeStatus(id) {
+        console.log(id);
+        // $('#editPost').modal('show');
+        $.ajax({
+          type: "GET",
+          url: "api/status/categories/"+id,
+          success: function(response)
+          {
+          // location.reload();
+          
+         dataTable.ajax.reload();
+           toastr.success('has been updated');
           },
           error: function (xhr, ajaxOptions, thrownError) {
             toastr.error(thrownError);

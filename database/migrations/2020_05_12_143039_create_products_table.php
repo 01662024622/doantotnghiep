@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('image');
             $table->string('slug');
             $table->string('description');
+            $table->string('category_id');
             $table->integer('user_id');
             $table->double('rate')->default(0);
             $table->integer('rate_number')->default(0);

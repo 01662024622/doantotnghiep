@@ -35,14 +35,14 @@
 @endsection
 @section('content')
 <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Charts</h1>
+<h1 class="h3 mb-2 text-gray-800">Charts</h1>
 
-          <!-- Content Row -->
-          <div class="row">
+<!-- Content Row -->
+<div class="row">
 
-            <div class="col-xl-8 col-lg-7">
+  <div class="col-xl-8 col-lg-7">
 
-              <!-- Area Chart -->
+    <!-- Area Chart -->
               {{-- <div class="card shadow mb-4">
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
@@ -90,14 +90,16 @@
           </div>
 
 
-<div class="container">
-  Đánh giá tổng quát hệ thống : <label for="sum" id="sumall"></label>
-</div>
-@endsection
+          <div class="container">
+            Đánh giá tổng quát hệ thống : <label for="sum" id="sumall"></label>
+          </div>
+          @endsection
 
-@section('js')
-<script src="{{ asset('js/main/consts.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
-<script src="https://rawgit.com/adrotec/knockout-file-bindings/master/knockout-file-bindings.js"></script>
+          @section('js')
+          <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
+          <script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
+          <script src="{{asset('js/demo/chart-bar-demo.js')}}"></script>
+          <script src="{{ asset('js/main/consts.js') }}"></script>
 
-@endsection
+
+          @endsection

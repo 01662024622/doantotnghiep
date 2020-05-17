@@ -3,39 +3,40 @@
 <link rel="stylesheet" href="https://rawgit.com/adrotec/knockout-file-bindings/master/knockout-file-bindings.css">
 
 <style type="text/css" media="screen">
-#name-error{
-      color: #5a5c69;
+  #name-error{
+    color: #5a5c69;
     font-size: 0.8rem;
     position: relative;
     line-height: 1;
     color: red
-}
-.error{
-      color: #5a5c69;
+  }
+  .error{
+    color: #5a5c69;
     font-size: 1rem;
     position: relative;
     line-height: 1;
     color: red;
     width: 100%;
-}
-.image-product{
-  width: 200px;
-  height: auto;
-}
+  }
+  .image-product{
+    width: 200px;
+    height: auto;
+  }
 </style>
 @endsection
 @section('content')
 
 <br><br>
-<button type="button" class="btn btn-primary" data-toggle="modal" href='#add-modal'>+Add New</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" href='#add-modal' onclick="clearForm()">+Add New</button>
 
 <br><br>
-<table class="table table-bordered" id="users-table">
+<table class="table table-bordered" id="users-table" onclick="clearForm()">
   <thead>
     <tr>
       <th>ID</th>
       <th>Name</th>
       <th>Image</th>
+      <th>Category</th>
       <th>Providor</th>
       <th>Created Date</th>
       <th>Status</th>
@@ -64,11 +65,20 @@
             <input type="text" class="form-control" id="name" name="name"  placeholder="Enter name">
           </div>
           <div class="form-group">
-            <label for="name">Name</label>
+            <label for="exampleFormControlSelect1">Category</label>
+            <select class="form-control" id="category_id" name="category_id">
+              @foreach ($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name}}</option>}
+                option
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="name">Main Image</label>
             <div class="well" data-bind="fileDrag: fileData">
               <div class="form-group row">
                 <div class="col-md-6">
-                  <img style="height: 125px;" class="img-rounded  thumb" data-bind="attr: { src: fileData().dataURL }, visible: fileData().dataURL">
+                  <img style="height: 125px;" id="imgImage" class="img-rounded  thumb" data-bind="attr: { src: fileData().dataURL }, visible: fileData().dataURL">
                   <div data-bind="ifnot: fileData().dataURL">
                     <label class="drag-label">Drag file here</label>
                   </div>
@@ -95,10 +105,12 @@
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
+<input type="hidden" name="id" id="eid" value="">
     </form>
   </div>
 </div>
 </div>
+
 
 @endsection
 
