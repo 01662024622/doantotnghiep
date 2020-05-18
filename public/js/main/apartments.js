@@ -8,14 +8,12 @@ $.ajaxSetup({
 var dataTable = $('#users-table').DataTable({
   processing: true,
   serverSide: true,
-  ajax: "/api/v1/users/table",
+  ajax: "/api/v1/apartments/table",
   columns: [
   { data: 'id', name: 'id' },
   { data: 'name', name: 'name' },
-  { data: 'email', name: 'email' },
-  { data: 'phone', name: 'phone' },
   { data: 'address', name: 'address' },
-  { data: 'role', name: 'role' },
+  { data: 'status', name: 'status' },
   { data: 'action', name: 'action' },
   ]
 });
@@ -30,16 +28,7 @@ $("#add-form").submit(function(e){
       required: true,
       minlength: 5
     },
-    phone:{
-      required:true,
-      minlength:10,
-      maxlength:10,
-    },
-    email:{
-      required:true,
-      minlength:10,
-    },
-    room:{
+    address:{
       required:true,
     },
   },
@@ -48,29 +37,8 @@ $("#add-form").submit(function(e){
       required: "Enter your name",
       minlength: "Leaste 5 word"
     },
-    name: {
-      required: "Enter your name",
-      minlength: "Leaste 5 word"
-    },
-    phone:{
-      required:"Enter your phone",
-      minlength:"Leaste has 10 number",
-      maxlength:"Leaste has 10 number",
-    },
-    email:{
-      required:"Enter your email",
-      minlength:"This not email",
-    },
-    room:{
-      required:"Enter your room",
-    },
-    password:{
-      required:"Enter your password",
-      minlength:"Leaste 8 word",
-    },
-    email:{
-      required:"Enter your email",
-      minlength:"Leaste 8 word",
+    address:{
+      required:"Enter your address",
     },
     
   },
@@ -108,16 +76,12 @@ $("#add-form").submit(function(e){
         // $('#editPost').modal('show');
         $.ajax({
           type: "GET",
-          url: "/users/"+id,
+          url: "/apartments/"+id,
           success: function(response)
           {
            $('#name').val(response.name);
-           $('#email').val(response.email);
-           $('#phone').val(response.phone);
-           $('#room').val(response.room);
-           $('#apartment_id').val(response.apartment_id);
+           $('#address').val(response.address);
            $('#eid').val(response.id);
-           $('.tag_pass').remove();
          },
          error: function (xhr, ajaxOptions, thrownError) {
           toastr.error(thrownError);
@@ -147,7 +111,7 @@ $("#add-form").submit(function(e){
         if (isConfirm) {
           $.ajax({
             type: "delete",
-            url: "users/"+id,
+            url: "/apartments/"+id,
             success: function(res)
             {
               if(!res.error) {
@@ -193,18 +157,7 @@ $("#add-form").submit(function(e){
 
       function clearForm(){
         $('#add-form')[0].reset(); 
-
-        $('.tag_pass').remove();
         $('#eid').val(''); 
-        $('.modal-body').append(`<div class="form-group tag_pass">
-          <label for="name">Password</label>
-          <input type="password" class="form-control" id="password" name="password"  placeholder="Enter password">
-          </div>
-          <div class="form-group tag_pass">
-          <label for="name">Re-Password</label>
-          <input type="password" class="form-control" id="repassword" name="repassword"  placeholder="Enter password">
-          </div>
-          <input type="hidden" name="id" id="eid">`);
       }
 
 
@@ -223,8 +176,8 @@ $("#add-form").submit(function(e){
       function(isConfirm) {
         if (isConfirm) {
           $.ajax({
-            type: "post",
-            url: "/api/status/users/"+id,
+            type: "get",
+            url: "/api/status/apartments/"+id,
             data: {
               role:$('#apartment_id_'+id).val()
             },

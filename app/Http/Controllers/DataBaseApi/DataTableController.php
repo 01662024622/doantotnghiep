@@ -73,6 +73,9 @@ class DataTableController extends Controller
 
 
 	public function category(){
+		if ($user_id==null) {
+			return "authen error";
+		}
 		$data = Category::select('categories.*');
 		// $products->user;
 		return Datatables::of($data)
@@ -85,7 +88,7 @@ class DataTableController extends Controller
 		})
 		->addColumn('parent_id', function ($dt) {
 			$data = Category::find($dt['parent_id']);
-			if ($data==null) {
+			if ($this->data!=null) {
 				return 'Main';
 			}
 			return $data->name;
@@ -126,6 +129,61 @@ class DataTableController extends Controller
 			return $dt['room']."-".$data->name;
 
 		})
+		->editColumn('role', function ($dt) {
+			$html='<select class="form-control" id="apartment_id_'.$dt['id'].'" name="apartment_id" onchange="changeStatus('.$dt['id'].')">
+			<option value="admin"';
+			if ($dt['role']=='admin') {
+				$html.=' selected ';
+			};
+			$html.='>admin</option>
+			<option value="manager"';
+			if ($dt['role']=='manager') {
+				$html.=' selected ';
+			};
+			$html.='>manager</option>
+			<option value="user"';
+			if ($dt['role']=='user') {
+				$html.=' selected ';
+			};
+			$html.='>user</option>
+			<option value="blocker"';
+			if ($dt['role']=='blocker') {
+				$html.=' selected ';
+			};
+			$html.='>blocker</option>
+			option
+			</select>';
+			return $html;
+			
+
+		})
+		->setRowId('data-{{$id}}')
+		->rawColumns(['action','role'])
+		->make(true);
+	}
+	
+	// check is role for data return
+	protected function getByRole($data){
+		if ($this->user_id!=null) {
+			return $data->where('user_id', $user_id);
+		}
+		return $data;
+	}
+
+		public function apartments(){
+		if ($this->user_id!=null) {
+			return "authen error";
+		}
+		$data = Apartment::select('apartments.*');
+		// $products->user;
+		return Datatables::of($data)
+		->addColumn('action', function ($dt) {
+			return'
+			<button type="button" class="btn btn-xs btn-warning"data-toggle="modal" onclick="getInfo('.$dt['id'].')" href="#add-modal"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button>
+			<button type="button" class="btn btn-xs btn-danger" onclick="alDelete('.$dt['id'].')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+			';
+
+		})
 		->editColumn('status', function ($dt) {
 			if ($dt['status']==0) {
 				return '<div class="custom-control custom-switch">
@@ -140,17 +198,9 @@ class DataTableController extends Controller
 
 		})
 		->setRowId('data-{{$id}}')
-		->rawColumns(['action','status'])
+		->rawColumns(['action','image','status'])
 		->make(true);
-	}
-	
-	// check is role for data return
-	protected function getByRole($data){
-		if ($this->user_id!=null) {
-			return $data->where('user_id', $user_id);
-		}
-		return $data;
-	}
+}
 }
 
 //  '<div class="custom-control custom-switch">

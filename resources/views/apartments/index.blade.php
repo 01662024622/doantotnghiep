@@ -35,10 +35,8 @@
     <tr>
       <th>ID</th>
       <th>Name</th>
-      <th>Email</th>
-      <th>Phone</th>
       <th>Address</th>
-      <th>Permission</th>
+      <th>Status</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -56,7 +54,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
-      <form id="add-form" action="{{asset('/users')}}" method="POST" >
+      <form id="add-form" action="{{asset('/apartments')}}" method="POST" >
         <!-- Modal body -->
         <div class="modal-body">
           <div class="form-group">
@@ -64,33 +62,8 @@
             <input type="text" class="form-control" id="name" name="name"  placeholder="Enter name">
           </div>
           <div class="form-group">
-            <label for="name">Email</label>
-            <input type="email" class="form-control" id="email" name="email"  placeholder="Enter email">
-          </div>
-          <div class="form-group">
-            <label for="name">Phone</label>
-            <input type="tel" class="form-control" id="phone" name="phone"  placeholder="Enter phome">
-          </div>
-          <div class="form-group">
-            <label for="name">Room</label>
-            <input type="tel" class="form-control" id="room" name="room"  placeholder="Enter room">
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Apartment</label>
-            <select class="form-control" id="apartment_id" name="apartment_id">
-              @foreach ($apartments as $apartment)
-                <option value="{{ $apartment->id }}">{{ $apartment->name}}</option>}
-                option
-              @endforeach
-            </select>
-          </div>
-          <div class="form-group tag_pass">
-            <label for="name">Password</label>
-            <input type="password" class="form-control" id="password" name="password"  placeholder="Enter password">
-          </div>
-          <div class="form-group tag_pass">
-            <label for="name">Re-Password</label>
-            <input type="password" class="form-control" id="repassword" name="repassword"  placeholder="Enter password">
+            <label for="name">Address</label>
+            <input type="tel" class="form-control" id="address" name="address"  placeholder="Enter address">
           </div>
           <input type="hidden" name="id" id="eid">
 
@@ -112,7 +85,7 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('js/main/users.js') }}"></script>
+<script src="{{ asset('js/main/apartments.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
 <script src="https://rawgit.com/adrotec/knockout-file-bindings/master/knockout-file-bindings.js"></script>
 
