@@ -8,16 +8,28 @@ $.ajaxSetup({
 var dataTable = $('#users-table').DataTable({
   processing: true,
   serverSide: true,
-  ajax: "/api/v1/users/table",
-  columns: [
-  { data: 'id', name: 'id' },
-  { data: 'name', name: 'name' },
-  { data: 'email', name: 'email' },
-  { data: 'phone', name: 'phone' },
-  { data: 'address', name: 'address' },
-  { data: 'role', name: 'role' },
-  { data: 'action', name: 'action' },
-  ]
+  ajax:{ type: "GET",
+  url: "/api/v1/users/table",
+  error: function (xhr, ajaxOptions, thrownError) {
+   if (xhr!=null) {
+    if (xhr.responseJSON!=null) {
+      if (xhr.responseJSON.errors!=null) {
+        if (xhr.responseJSON.errors.permission!=null) {
+          location.reload();
+        }
+      }
+    }
+  }
+}},
+columns: [
+{ data: 'id', name: 'id' },
+{ data: 'name', name: 'name' },
+{ data: 'email', name: 'email' },
+{ data: 'phone', name: 'phone' },
+{ data: 'address', name: 'address' },
+{ data: 'role', name: 'role' },
+{ data: 'action', name: 'action' },
+]
 });
 //____________________________________________________________________________________________________
 
@@ -223,3 +235,38 @@ $("#add-form").submit(function(e){
         });
       }
 
+      function changeStatus(id){
+       swal({
+        title: "Are you sure to change role?",
+        // text: "Bạn sẽ không thể khôi phục lại bản ghi này!!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",  
+        cancelButtonText: "No",
+        confirmButtonText: "Yes",
+        // closeOnConfirm: false,
+      },
+      function(isConfirm) {
+        if (isConfirm) {
+          $.ajax({
+            type: "post",
+            url: "/api/status/users/"+id,
+            data:{
+              role:$('#role_'+id).val(),
+            },
+            success: function(res)
+            {
+              if(!res.error) {
+                toastr.success('Success!');
+                dataTable.ajax.reload();
+              }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              toastr.error(thrownError);
+            }
+          });
+        } else {
+          toastr.error("Cancel!");
+        }
+      });
+     }

@@ -19,7 +19,7 @@ class UserManage
     public function handle($request, Closure $next)
     {
          if (Auth::guard()->check()) {
-            if(Auth::user()->role == 'admin' || Auth::user()->role == 'manage' )
+            if(Auth::user()->role == 'admin' || Auth::user()->role == 'manage' || Auth::user()->role == 'providor')
             {
                 return $next($request);
                 

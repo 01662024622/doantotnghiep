@@ -33,13 +33,6 @@ class RatingController extends Controller
 		return $respon;
 
 	}
-	public function update(Request $request, $id) {
-		$data=$request->only(['name', 'parent_id']);
-		// return $data;
-		$data['slug']=Str::slug($request->name, '-').time();
-		$respon=Rating::find($id)->update($data);
-		return $respon;
-	}
 
 
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Category;
+use App\User;
 use App\Product;
 
 class StatusController extends Controller
@@ -30,5 +31,10 @@ class StatusController extends Controller
 		}
 		$data=Product::find($id)->update(array('status' => 0));
 		return  $data;
+	}
+	public function users(Request $request, $id){
+		$data= User::find($id);
+			$data=User::find($id)->update(array('role' => $request->role));
+		return $data;
 	}
 }

@@ -15,7 +15,21 @@
 var dataTable = $('#users-table').DataTable({
   processing: true,
   serverSide: true,
-  ajax: "/api/v1/product/table",
+  ajax:{ type: "GET",
+  url: "/api/v1/product/table",
+  error: function (xhr, ajaxOptions, thrownError) {
+
+    if (xhr!=null) {
+      if (xhr.responseJSON!=null) {
+        if (xhr.responseJSON.errors!=null) {
+          if (xhr.responseJSON.errors.permission!=null) {
+            location.reload();
+          }
+        }
+      }
+    }
+    // location.reload();
+  }},
   columns: [
   { data: 'id', name: 'id' },
   { data: 'name', name: 'name' },
@@ -204,5 +218,5 @@ $("#add-form").submit(function(e){
         $('#eid').val(''); 
         CKEDITOR.instances.description.setData('');
 
-            $('#imgImage').hide();
+        $('#imgImage').hide();
       }

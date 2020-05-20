@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Apartment;
-
 class UserController extends Controller
 {
     function __construct() {
 		$this->middleware('manage');
+
 	}
 
 	public function index(){
