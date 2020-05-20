@@ -3,30 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
 use App\Apartment;
-class UserController extends Controller
+use Illuminate\Support\Str;
+
+class ApartmentController extends Controller
 {
     function __construct() {
-		$this->middleware('manage');
-
+		$this->middleware('admin');
 	}
-
 	public function index(){
-		$apartments = Apartment::where('status',1)->get();
-		return view('users.index',['apartments'=>$apartments]);
+		return view('apartments.index');
 	}
 
 
 	public function show($id){
-		$data=User::find($id);
+		$data=Apartment::find($id);
         // $categories=Category::orderBy('id','DESC')->get();
 		return response()->json($data);
 	}
 	public function destroy($data){
         // Product::find($id);
 
-		$data=User::find($id)->delete();
+		$data=Apartment::find($id)->delete();
 		return response()->json($data);
 	}
 
@@ -34,20 +32,18 @@ class UserController extends Controller
 		$data=$request->all();
 
 		if ($request->has('id')) {
-			$respon=User::find($request->id)->update($data);
+			$respon=Apartment::find($request->id)->update($data);
 
 			return $respon;
 		}
-		$respon=User::create($data);
+		$respon=Apartment::create($data);
 
 		return $respon;
 
 	}
+	public function post($slug){
 
-
-	public function manageUser($slug){
-
-		$products= Product::where('slug',$slug)->first();
+		$products= Apartment::where('slug',$slug)->first();
 
 	}
 }

@@ -126,7 +126,7 @@ class DataTableController extends Controller
 
 
 
-	public function category(){
+	public function category(){]
 		if (Auth::user()->role!="admin") {
 			Auth::logout();
 			return response()->json(['errors' => ['permission' => ['do not have permission.']]], 500);
@@ -144,7 +144,7 @@ class DataTableController extends Controller
 		})
 		->addColumn('parent_id', function ($dt) {
 			$data = Category::find($dt['parent_id']);
-			if ($data==null) {
+			if ($this->data!=null) {
 				return 'Main';
 			}
 			return $data->name;
@@ -168,9 +168,38 @@ class DataTableController extends Controller
 		->make(true);
 	}
 
-	
-	// check is role for data return
-	
+
+		public function apartments(){
+		if ($this->user_id!=null) {
+			return "authen error";
+		}
+		$data = Apartment::select('apartments.*');
+		// $products->user;
+		return Datatables::of($data)
+		->addColumn('action', function ($dt) {
+			return'
+			<button type="button" class="btn btn-xs btn-warning"data-toggle="modal" onclick="getInfo('.$dt['id'].')" href="#add-modal"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button>
+			<button type="button" class="btn btn-xs btn-danger" onclick="alDelete('.$dt['id'].')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+			';
+
+		})
+		->editColumn('status', function ($dt) {
+			if ($dt['status']==0) {
+				return '<div class="custom-control custom-switch">
+				<input type="checkbox" onchange="changeStatus('.$dt["id"].')"  class="custom-control-input" id="customSwitch'.$dt["id"].'">
+				<label class="custom-control-label" for="customSwitch'.$dt["id"].'"></label>
+				</div>';
+			}
+			return '<div class="custom-control custom-switch">
+			<input type="checkbox"  onchange="changeStatus('.$dt["id"].')" class="custom-control-input" id="customSwitch'.$dt["id"].'" checked>
+			<label class="custom-control-label" for="customSwitch'.$dt["id"].'"></label>
+			</div>';
+
+		})
+		->setRowId('data-{{$id}}')
+		->rawColumns(['action','image','status'])
+		->make(true);
+}
 }
 
 //  '<div class="custom-control custom-switch">
