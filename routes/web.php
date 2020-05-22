@@ -29,6 +29,8 @@ Route::resource('categories', 'CategoryController');
 
 Route::resource('apartments', 'ApartmentController');
 
+Route::resource('orders', 'OrderController');
+
 Route::post('categories/{id}', 'CategoryController@update');
 Route::post('products/{id}', 'ProductController@update');
 
@@ -42,10 +44,12 @@ Route::group(['prefix' => 'api/v1'], function() {
 
 	Route::get('apartments/table', 'DataBaseApi\DataTableController@apartments')->name('apartments.api.data');
 
+	Route::get('orders/table', 'DataBaseApi\DataTableController@orders')->name('orders.api.data');
 
 
-	Route::get('consts/table', 'DataBaseApi\DataTableController@consts')->name('consts.api.data');
-	Route::get('rating/table', 'DataBaseApi\DataTableController@rating')->name('rating.api.data');
+
+	Route::get('consts/table', 'DataBaseApi\AiController@consts')->name('consts.api.data');
+	Route::get('rating/table', 'DataBaseApi\AiController@rating')->name('rating.api.data');
 
 });
 
@@ -57,6 +61,7 @@ Route::group(['prefix' => 'api/status'], function() {
 		Route::get('apartments/{id}', 'status\StatusController@apartments')->name('apartments.api.status');
 
 	Route::post('users/{id}', 'status\StatusController@users')->name('users.api.status');
+	Route::post('orders/{id}', 'status\StatusController@orders')->name('orders.api.status');
 
 
 
@@ -72,3 +77,4 @@ Route::get('pie/avg', 'DataBaseApiChart@average2');
 
 Route::resource('rates', 'RatingController');
 Route::resource('consts', 'ConstController');
+Auth::routes(['verify' => true]);

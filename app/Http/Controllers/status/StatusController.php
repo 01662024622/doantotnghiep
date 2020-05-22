@@ -9,6 +9,7 @@ use App\Category;
 use App\User;
 use App\Product;
 use App\User;
+use App\Order;
 use App\Apartment;
 
 class StatusController extends Controller
@@ -35,20 +36,28 @@ class StatusController extends Controller
 		return  $data;
 	}
 	public function users(Request $request, $id){
-		$data= User::find($id);
 		$data=User::find($id)->update(array('role' => $request->role));
 		return $data;
 
 
-		public function apartments($id){
-			$data= Apartment::find($id);
-			if ($data->status==0) {
-				$data=Apartment::find($id)->update(array('status' => 1));
-				return $data;
-			}
-			$data=Apartment::find($id)->update(array('status' => 0));
-			return  $data;
-			
 
-		}
 	}
+	public function apartments($id){
+		$data= Apartment::find($id);
+		if ($data->status==0) {
+			$data=Apartment::find($id)->update(array('status' => 1));
+			return $data;
+		}
+		$data=Apartment::find($id)->update(array('status' => 0));
+		return  $data;
+
+
+	}
+	public function orders(Request $request, $id){
+		$data=Order::find($id)->update(array('role' => $request->status));
+		return $data;
+
+
+
+	}
+}

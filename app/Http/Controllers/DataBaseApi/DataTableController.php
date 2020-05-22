@@ -12,6 +12,7 @@ use App\User;
 use App\Apartment;
 use App\Rating;
 use App\Constant;
+use App\Order;
 use Redirect;
 class DataTableController extends Controller
 {
@@ -126,7 +127,7 @@ class DataTableController extends Controller
 
 
 
-	public function category(){]
+	public function category(){
 		if (Auth::user()->role!="admin") {
 			Auth::logout();
 			return response()->json(['errors' => ['permission' => ['do not have permission.']]], 500);
@@ -143,11 +144,14 @@ class DataTableController extends Controller
 
 		})
 		->addColumn('parent_id', function ($dt) {
-			$data = Category::find($dt['parent_id']);
-			if ($this->data!=null) {
+			if ($dt['parent_id']==0) {
 				return 'Main';
+			}else {
+				
+			$categories = Category::find($dt['parent_id']);
+			
+			return $categories->name;
 			}
-			return $data->name;
 
 		})
 		->editColumn('status', function ($dt) {
@@ -169,9 +173,68 @@ class DataTableController extends Controller
 	}
 
 
+
+public function orders(){
+		if (Auth::user()->role!="admin" && Auth::user()->role!="providor") {
+			Auth::logout();
+			return response()->json(['errors' => ['permission' => ['do not have permission.']]], 500);
+
+		}
+		$data = Order::select('orders.*');
+		// $products->user;
+		// return $data;
+
+		return Datatables::of($data)
+		->addColumn('user', function ($dt) {	
+			$user = User::find($dt['user_id']);
+			return $user->name;
+
+		})		
+		->addColumn('email', function ($dt) {
+			$user = User::find($dt['user_id']);
+			return $user->email;
+
+		})		
+		->addColumn('phone', function ($dt) {
+			$user = User::find($dt['user_id']);
+			return $user->phone;
+
+		})
+		->addColumn('address', function ($dt) {
+			$user = User::find($dt['user_id']);
+			$apartment = Apartment::find($user->apartment_id);
+			return $apartment->name;
+
+		})
+		->addColumn('product', function ($dt) {
+			$product = Product::find($dt['products_id']);
+			$user = User::find($product->user_id);
+			return $product->name."-".$user->name."-".$user->phone;
+		
+
+		})
+		->editColumn('status', function ($dt) {
+			if ($dt['status']==0) {
+				return '<div class="custom-control custom-switch">
+				<input type="checkbox" onchange="changeStatus('.$dt["id"].')"  class="custom-control-input" id="customSwitch'.$dt["id"].'">
+				<label class="custom-control-label" for="customSwitch'.$dt["id"].'"></label>
+				</div>';
+			}
+			return '<div class="custom-control custom-switch">
+			<input type="checkbox"  onchange="changeStatus('.$dt["id"].')" class="custom-control-input" id="customSwitch'.$dt["id"].'" checked>
+			<label class="custom-control-label" for="customSwitch'.$dt["id"].'"></label>
+			</div>';
+
+		})
+		->setRowId('data-{{$id}}')
+		->rawColumns(['status'])
+		->make(true);
+	}
+
 		public function apartments(){
-		if ($this->user_id!=null) {
-			return "authen error";
+		if (Auth::user()->role!="admin") {
+			Auth::logout();
+			return response()->json(['errors' => ['permission' => ['do not have permission.']]], 500);
 		}
 		$data = Apartment::select('apartments.*');
 		// $products->user;

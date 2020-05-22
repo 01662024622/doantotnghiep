@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Apartment;
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     function __construct() {
@@ -32,7 +33,7 @@ class UserController extends Controller
 
 	public function store(Request $request) {
 		$data=$request->all();
-
+		$data['password']=Hash::make($request->password);
 		if ($request->has('id')) {
 			$respon=User::find($request->id)->update($data);
 
