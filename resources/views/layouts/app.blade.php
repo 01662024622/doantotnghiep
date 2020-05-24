@@ -34,7 +34,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -43,12 +43,17 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
+      <li class="nav-item">
+                      <a class="nav-link" href="/">
+                        <span>Trang Chủ</span></a>
+                      </li>
 
+      @if(Auth::user()->role!="user")
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
         <a class="nav-link" href="/dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <span>Tổng Hợp</span></a>
         </li>
 
         <!-- Divider -->
@@ -142,46 +147,71 @@
             </div>
 
             --}}
+            <!-- Nav Item - Pages Collapse Menu -->
+
+            <li class="nav-item active">
+              <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Quản Lý</span>
+              </a>
+              <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                 @if(Auth::user()->role=="admin")
+
+                 <a class="collapse-item" href="/apartments">
+                  <i class="fas fa-fw fa-building"></i>
+                  <span>Khu Trung Cư</span></a>
+
+                  <a class="collapse-item" href="/categories">
+                    <i class="fas fa-fw fa-clipboard-list"></i>
+                    <span>Danh Mục</span></a>
+
+                    <a class="collapse-item" href="/orders">
+                      <i class="fas fa-fw fa-shopping-cart"></i>
+                      <span>Đơn Hàng</span></a>
+
+                      @endif
 
 
-            @if(Auth::user()->role=="admin")
+                      @if(Auth::user()->role=="admin"||Auth::user()->role=="manage")
 
-            <div class="sidebar-heading">Admin</div>
 
-            <li class="nav-item">
-              <a class="nav-link" href="/apartments">
-                <i class="fas fa-fw fa-building"></i>
-                <span>Apartments</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/categories">
-                  <i class="fas fa-fw fa-clipboard-list"></i>
-                  <span>Categories</span></a>
-                </li>
-                
-                <li class="nav-item">
-                  <a class="nav-link" href="/orders">
-                    <i class="fas fa-fw fa-shopping-cart"></i>
-                    <span>Orders</span></a>
-                  </li>
-                  @endif
+                      <a class="collapse-item" href="/users">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>Người Dùng</span></a>
 
-                  @if(Auth::user()->role=="admin"||Auth::user()->role=="manage")
-                  <div class="sidebar-heading">Manager</div> 
-                  <li class="nav-item">
-                    <a class="nav-link" href="/users">
-                      <i class="fas fa-fw fa-users"></i>
-                      <span>Users</span></a>
+
+                        @endif
+
+                        @if(Auth::user()->role=="admin"||Auth::user()->role=="providor")
+
+                        <a class="collapse-item" href="/products">
+                          <i class="fas fa-fw fa-piggy-bank"></i>
+                          <span>Dịch Vụ</span></a>
+
+                          @endif
+
+                        </div>
+                      </div>
                     </li>
                     @endif
-                    @if(Auth::user()->role=="admin"||Auth::user()->role=="providor")
-                    <div class="sidebar-heading">Providor</div> 
+                    <div class="sidebar-heading">Danh Mục</div>
+                    @foreach ($categories as $category)
                     <li class="nav-item">
-                      <a class="nav-link" href="/products">
-                        <i class="fas fa-fw fa-piggy-bank"></i>
-                        <span>Products</span></a>
+                      <a class="nav-link" href="/categories/user/{{ $category->slug}}">
+                        <span>{{$category->name}}</span></a>
                       </li>
-                      @endif
+                      @endforeach
+ <li class="nav-item">
+                      <a class="nav-link" href="/gioi-thieu">
+                        <span>Giới Thiệu</span></a>
+                      </li>
+                       <li class="nav-item">
+                      <a class="nav-link" href="contact">
+                        <span>Liên Hệ và Phản Ánh</span></a>
+                      </li>
+
+
                       <!-- Divider -->
                       <hr class="sidebar-divider d-none d-md-block">
 

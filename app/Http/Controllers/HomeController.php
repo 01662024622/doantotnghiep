@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,15 @@ class HomeController extends Controller
     public function index()
     {
         return view('ai.chart');
+    }
+    public function home(){
+          $products = Product::where('status',1)->orderByDesc('rate')->get();
+        return view('welcome',['products'=>$products]);
+    }
+        public function infor(){
+        return view('welcome',);
+    }
+        public function contact(){
+        return view('contact',);
     }
 }
