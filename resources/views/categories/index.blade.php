@@ -34,11 +34,11 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>Name</th>
-      <th>Parent Category</th>
-      <th>Created Date</th>
-      <th>Status</th>
-      <th>Action</th>
+      <th>Tên</th>
+      <th>Danh Mục Chứa</th>
+      <th>Ngày Tạo</th>
+      <th>Trạng Thái</th>
+      <th>Hành Động</th>
     </tr>
   </thead>
 </table>
@@ -51,7 +51,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Add New</h4>
+        <h4 class="modal-title">Thêm mới</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -59,16 +59,18 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Tên</label>
             <input type="text" class="form-control" id="name" name="name"  placeholder="Enter name">
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Parent Category</label>
+            <label for="exampleFormControlSelect1">Danh Mục Chứa</label>
             <select class="form-control" id="parent_id" name="parent_id">
-             <option value="0">Main</option>
-             @foreach ($categories as $category)
-             <option value="{{$category->id}}">{{$category->name}}</option>
-             @endforeach
+             <option value="0">Người Giúp Việc Gia Đình</option>
+             <option value="1">Sửa Chữa</option>
+             <option value="2">Vận Chuyển</option>
+             <option value="3">Chăm Sóc</option>
+             <option value="4">Nấu Ăn</option>
+             <option value="5">Tạp Vụ</option>
            </select>
          </div>
 
@@ -93,7 +95,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Update</h4>
+        <h4 class="modal-title">Cập Nhật</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -101,16 +103,18 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Tên Danh Mục</label>
             <input type="text" class="form-control" id="ename" name="name"  placeholder="Enter name">
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Parent Category</label>
-            <select class="form-control" id="eparent_id" name="parent_id">
-             <option value="0">Main</option>
-             @foreach ($categories as $category)
-             <option value="{{$category->id}}">{{$category->name}}</option>
-             @endforeach
+            <label for="exampleFormControlSelect1">Danh Mục Chứa</label>
+            <select class="form-control" id="parent_id" name="parent_id">
+             <option value="0">Người Giúp Việc Gia Đình</option>
+             <option value="1">Sửa Chữa</option>
+             <option value="2">Vận Chuyển</option>
+             <option value="3">Chăm Sóc</option>
+             <option value="4">Nấu Ăn</option>
+             <option value="5">Tạp Vụ</option>
            </select>
          </div>
 

@@ -145,12 +145,17 @@ class DataTableController extends Controller
 		})
 		->addColumn('parent_id', function ($dt) {
 			if ($dt['parent_id']==0) {
-				return 'Main';
-			}else {
-				
-			$categories = Category::find($dt['parent_id']);
-			
-			return $categories->name;
+				return 'Người Giúp Việc Gia Đình';
+			}elseif ($dt['parent_id']==1) {
+				return "Sửa Chữa";
+			}elseif ($dt['parent_id']==2) {
+				return "Vận Chuyển";
+			}elseif ($dt['parent_id']==3) {
+				return "Chăm Sóc";
+			}elseif ($dt['parent_id']==4) {
+				return "Nấu Ăn";
+			}elseif ($dt['parent_id']==5) {
+				return "Tạp Vụ";
 			}
 
 		})

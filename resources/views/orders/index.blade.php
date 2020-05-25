@@ -32,13 +32,13 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>User</th>
+      <th>Tên Người Dùng</th>
       <th>Email</th>
-      <th>Phone</th>
-      <th>Address</th>
-      <th>Products</th>
-      <th>Action</th>
-      <th>Action</th>
+      <th>SĐT</th>
+      <th>Địa Chỉ</th>
+      <th>Dịch vụ</th>
+      <th>Trạng Thái</th>
+      <th>Hành Động</th>
     </tr>
   </thead>
 </table>

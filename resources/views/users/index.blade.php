@@ -34,12 +34,12 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>Name</th>
+      <th>Tên Người Dùng</th>
       <th>Email</th>
-      <th>Phone</th>
-      <th>Address</th>
-      <th>Permission</th>
-      <th>Action</th>
+      <th>Số Điện Thoại</th>
+      <th>Địa Chỉ</th>
+      <th>Quyền Hạn</th>
+      <th>Hành Động</th>
     </tr>
   </thead>
 </table>
@@ -52,7 +52,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Add New</h4>
+        <h4 class="modal-title">Thêm Mới Hoặc Cập Nhật</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -60,7 +60,7 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Tên Người Dùng</label>
             <input type="text" class="form-control" id="name" name="name"  placeholder="Enter name">
           </div>
           <div class="form-group">
@@ -68,15 +68,15 @@
             <input type="email" class="form-control" id="email" name="email"  placeholder="Enter email">
           </div>
           <div class="form-group">
-            <label for="name">Phone</label>
+            <label for="name">SĐT</label>
             <input type="tel" class="form-control" id="phone" name="phone"  placeholder="Enter phome">
           </div>
           <div class="form-group">
-            <label for="name">Room</label>
+            <label for="name">Phòng</label>
             <input type="tel" class="form-control" id="room" name="room"  placeholder="Enter room">
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Apartment</label>
+            <label for="exampleFormControlSelect1">Trung Cư</label>
             <select class="form-control" id="apartment_id" name="apartment_id">
               @foreach ($apartments as $apartment)
                 <option value="{{ $apartment->id }}">{{ $apartment->name}}</option>}
@@ -85,11 +85,11 @@
             </select>
           </div>
           <div class="form-group tag_pass">
-            <label for="name">Password</label>
+            <label for="name">Mật Khẩu</label>
             <input type="password" class="form-control" id="password" name="password"  placeholder="Enter password">
           </div>
           <div class="form-group tag_pass">
-            <label for="name">Re-Password</label>
+            <label for="name">Nhập Lại Mật Khẩu</label>
             <input type="password" class="form-control" id="repassword" name="repassword"  placeholder="Enter password">
           </div>
           <input type="hidden" name="id" id="eid">

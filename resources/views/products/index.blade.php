@@ -34,13 +34,13 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>Name</th>
-      <th>Image</th>
-      <th>Category</th>
-      <th>Providor</th>
-      <th>Created Date</th>
-      <th>Status</th>
-      <th>Action</th>
+      <th>Dịch Vụ</th>
+      <th>Ảnh Mô Tả</th>
+      <th>Danh Mục</th>
+      <th>TT Nhà Cung Cấp</th>
+      <th>Ngày Tạo</th>
+      <th>Trạng Thái</th>
+      <th>Hành Động</th>
     </tr>
   </thead>
 </table>
@@ -53,7 +53,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Add New</h4>
+        <h4 class="modal-title">Thêm Mới Hoặc Cập Nhật</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -61,11 +61,11 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Dịch Vụ</label>
             <input type="text" class="form-control" id="name" name="name"  placeholder="Enter name">
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Category</label>
+            <label for="exampleFormControlSelect1">Danh Mục</label>
             <select class="form-control" id="category_id" name="category_id">
               @foreach ($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name}}</option>}
@@ -74,7 +74,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="name">Main Image</label>
+            <label for="name">Ảnh Mô Tả</label>
             <div class="well" data-bind="fileDrag: fileData">
               <div class="form-group row">
                 <div class="col-md-6">
@@ -94,7 +94,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="">Descripton</label>
+          <label for="">Mô Tả Chi Tiết</label>
           <textarea name="description" id="description" class="form-control"></textarea>
         </div>
 

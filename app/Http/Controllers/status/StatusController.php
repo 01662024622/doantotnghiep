@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\User;
 use App\Product;
-use App\User;
 use App\Order;
 use App\Apartment;
 
