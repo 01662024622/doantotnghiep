@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@home');
 Route::get('/gioi-thieu', 'HomeController@infor');
 Route::get('/contact', 'HomeController@contact');
+Route::get('//categories/{slug}', 'HomeController@category');
 
 Auth::routes();
 
