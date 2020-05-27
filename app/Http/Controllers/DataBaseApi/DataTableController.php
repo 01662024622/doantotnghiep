@@ -13,7 +13,10 @@ use App\Apartment;
 use App\Rating;
 use App\Constant;
 use App\Order;
+use App\Staff;
+use App\StaffProduct;
 use Redirect;
+use DB;
 class DataTableController extends Controller
 {
 
@@ -90,6 +93,7 @@ class DataTableController extends Controller
 		})
 		->addColumn('action', function ($dt) {
 			return'
+			<button type="button" class="btn btn-xs btn-success"data-toggle="modal" onclick="staff('.$dt['id'].')" href="#staff-modal"><i class="fas fa-plus" aria-hidden="true"></i></button>
 			<button type="button" class="btn btn-xs btn-warning"data-toggle="modal" onclick="getInfo('.$dt['id'].')" href="#add-modal"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button>
 			<button type="button" class="btn btn-xs btn-danger" onclick="alDelete('.$dt['id'].')"><i class="fa fa-trash" aria-hidden="true"></i></button>
 			';
@@ -268,6 +272,91 @@ public function orders(){
 		->rawColumns(['action','image','status'])
 		->make(true);
 }
+
+public function staff(){
+		$datas = Staff::select('staffs.*');
+		if (!Auth::user()->role=="providor"||!Auth::user()->role=="admin") {
+			Auth::logout();
+			return response()->json(['errors' => ['permission' => ['do not have permission.']]], 500);
+		}
+			$datas=$datas->where("user_id",Auth::id());
+		
+		// $products->user;
+		return Datatables::of($datas)
+		->addColumn('action', function ($dt) {
+			return'
+			<button type="button" class="btn btn-xs btn-warning"data-toggle="modal" onclick="getInfo('.$dt['id'].')" href="#add-modal"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button>
+			<button type="button" class="btn btn-xs btn-danger" onclick="alDelete('.$dt['id'].')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+			';
+
+		})
+
+		->editColumn('image', function ($dt) {
+			return'<img src="'.$dt['image'].'" class="image-product" />';
+
+		})
+
+
+		->editColumn('status', function ($dt) {
+			if ($dt['status']==0) {
+				return '<div class="custom-control custom-switch">
+				<input type="checkbox" onchange="changeStatus('.$dt["id"].')" class="custom-control-input" id="customSwitch'.$dt["id"].')"">
+				<label class="custom-control-label" for="customSwitch'.$dt["id"].')""></label>
+				</div>';
+			}
+			return '<div class="custom-control custom-switch">
+			<input type="checkbox"  onchange="changeStatus('.$dt["id"].')" class="custom-control-input" id="customSwitchonchange'.$dt["id"].')"" checked>
+			<label class="custom-control-label" for="customSwit'.$dt["id"].')""></label>
+			</div>';
+
+		})
+		->setRowId('dt-{{$id}}')
+		->rawColumns(['action','image','status'])
+		->make(true);
+	}
+	public function staffmanager($id){
+		$datas = Staff::select('staffs.*',DB::raw($id." as product_id"));
+		if (!Auth::user()->role=="providor"||!Auth::user()->role=="admin") {
+			Auth::logout();
+			return response()->json(['errors' => ['permission' => ['do not have permission.']]], 500);
+		}
+			$datas=$datas->where("user_id",Auth::id());
+		
+		// $products->user;
+		return Datatables::of($datas)
+		->addColumn('action', function ($dt) {
+			return'
+			<button type="button" class="btn btn-xs btn-warning"data-toggle="modal" onclick="getInfo('.$dt['id'].')" href="#add-modal"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button>
+			<button type="button" class="btn btn-xs btn-danger" onclick="alDelete('.$dt['id'].')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+			';
+
+		})
+
+		->editColumn('image', function ($dt) {
+			return'<img src="'.$dt['image'].'" class="image-product" />';
+
+		})
+
+
+		->editColumn('status', function ($dt) {
+			$staffProduct = StaffProduct::where('product_id',$dt['product_id'])->where('staff_id',$dt['id'])->first();
+			// $staffProduct=null;
+			if ($staffProduct==null) {
+				return '<div class="custom-control custom-switch">
+				<input type="checkbox" onchange="changeStatus('.$dt["id"].')" class="custom-control-input" id="customSwitch'.$dt["id"].')"">
+				<label class="custom-control-label" for="customSwitch'.$dt["id"].')""></label>
+				</div>';
+			}
+			return '<div class="custom-control custom-switch">
+			<input type="checkbox"  onchange="changeStatus('.$dt["id"].')" class="custom-control-input" id="customSwitchonchange'.$dt["id"].')"" checked>
+			<label class="custom-control-label" for="customSwit'.$dt["id"].')""></label>
+			</div>';
+
+		})
+		->setRowId('dt-{{$id}}')
+		->rawColumns(['action','image','status'])
+		->make(true);
+	}
 }
 
 //  '<div class="custom-control custom-switch">

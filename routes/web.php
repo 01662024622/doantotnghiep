@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@home');
 Route::get('/gioi-thieu', 'HomeController@infor');
 Route::get('/contact', 'HomeController@contact');
-Route::get('//categories/{slug}', 'HomeController@category');
+Route::get('/category/{slug}', 'HomeController@category');
+Route::get('/product/{slug}', 'HomeController@product');
 
 Auth::routes();
 
@@ -32,6 +33,8 @@ Route::resource('apartments', 'ApartmentController');
 
 Route::resource('orders', 'OrderController');
 
+Route::resource('staff', 'StaffController');
+
 Route::post('categories/{id}', 'CategoryController@update');
 Route::post('products/{id}', 'ProductController@update');
 
@@ -46,6 +49,9 @@ Route::group(['prefix' => 'api/v1'], function() {
 	Route::get('apartments/table', 'DataBaseApi\DataTableController@apartments')->name('apartments.api.data');
 
 	Route::get('orders/table', 'DataBaseApi\DataTableController@orders')->name('orders.api.data');
+	
+	Route::get('staff/table', 'DataBaseApi\DataTableController@staff')->name('staff.api.data');
+	Route::get('staff/manager/table/{id}', 'DataBaseApi\DataTableController@staffmanager')->name('staffv1.api.data');
 
 
 
@@ -63,6 +69,7 @@ Route::group(['prefix' => 'api/status'], function() {
 
 	Route::post('users/{id}', 'status\StatusController@users')->name('users.api.status');
 	Route::post('orders/{id}', 'status\StatusController@orders')->name('orders.api.status');
+	Route::get('staff/{id}', 'status\StatusController@staff')->name('staff.api.status');
 
 
 

@@ -32,15 +32,18 @@ class HomeController extends Controller
         return view('welcome',['products'=>$products]);
     }
         public function infor(){
-        return view('welcome',);
+        return view('infor');
     }
         public function contact(){
-        return view('contact',);
+        return view('contact');
     }
     public function category($slug){
         $category=Category::where('slug',$slug)->first();
-        // return $category;
           $products = Product::where('status',1)->where('category_id',$category->id)->orderByDesc('rate')->get();
         return view('welcome',['products'=>$products]);
+    }
+    public function product($slug){
+        $product=Product::where('slug',$slug)->first();
+        return view('product',['product'=>$product]);
     }
 }

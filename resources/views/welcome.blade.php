@@ -183,6 +183,9 @@
     opacity: 1;
     -webkit-transform: scale(1);
             transform: scale(1); } }
+  .card-body{
+        padding: 1rem 1rem 0 1rem;
+  }
   </style>
 @endsection
 @section('content')
@@ -193,10 +196,10 @@
     @foreach ($products as $product)
     <div class="col-lg-4 col-md-6 mb-4">
         <div class="card h-100">
-          <a href="#" data-toggle="modal" data-target="#myModal"><img class="card-img-top" src="{{$product->image}}" alt=""></a>
+          <a href="/product/{{$product->slug}}" data-toggle="modal" data-target="#myModal"><img class="card-img-top" src="{{$product->image}}" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#" data-toggle="modal" data-target="#myModal">{{$product->name}}</a>
+              <a href="/product/{{$product->slug}}">{{$product->name}}</a>
           </h4>
           <p class="card-text">{!! $product->description !!}</p>
       </div>
@@ -206,12 +209,14 @@
     @if($product->rate>$i)
     
 
-    <span >&#11088;</span>
+    <span class="fa fa-star checked"></span>
     @else 
-    <span style="font-size: 20px;">&#9733;</span>
+    <span class="fa fa-star"></span>
     
     @endif
-@endfor</small>
+@endfor
+<span>Số Lượt Đánh Giá: {{$product->rate_number}}</span>
+</small>
     </div>
 </div>
 </div>

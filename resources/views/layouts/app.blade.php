@@ -198,7 +198,7 @@
                     <div class="sidebar-heading">Danh Mục</div>
                     @foreach ($categories as $category)
                     <li class="nav-item">
-                      <a class="nav-link" href="/categories/{{ $category->slug}}">
+                      <a class="nav-link" href="/category/{{ $category->slug}}">
                         <span>{{$category->name}}</span></a>
                       </li>
                       @endforeach
@@ -207,7 +207,7 @@
                         <span>Giới Thiệu</span></a>
                       </li>
                        <li class="nav-item">
-                      <a class="nav-link" href="contact">
+                      <a class="nav-link" href="/contact">
                         <span>Liên Hệ và Phản Ánh</span></a>
                       </li>
 

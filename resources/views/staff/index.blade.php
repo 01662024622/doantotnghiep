@@ -30,14 +30,14 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" href='#add-modal' onclick="clearForm()">+Add New</button>
 
 <br><br>
-<table class="table table-bordered" id="users-table">
+<table class="table table-bordered" id="users-table" onclick="clearForm()">
   <thead>
     <tr>
       <th>ID</th>
-      <th>Dịch Vụ</th>
-      <th>Ảnh Mô Tả</th>
-      <th>Danh Mục</th>
-      <th>TT Nhà Cung Cấp</th>
+      <th>Họ và Tên Nhân Viên</th>
+      <th>CV</th>
+      <th>SĐT</th>
+      <th>Email</th>
       <th>Trạng Thái</th>
       <th>Hành Động</th>
     </tr>
@@ -56,24 +56,15 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
-      <form id="add-form" action="{{asset('/products')}}" method="POST" >
+      <form id="add-form" action="{{asset('/staff')}}" method="POST" >
         <!-- Modal body -->
         <div class="modal-body">
           <div class="form-group">
-            <label for="name">Dịch Vụ</label>
+            <label for="name">Họ Và Tên Nhân Viên</label>
             <input type="text" class="form-control" id="name" name="name"  placeholder="Enter name">
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Danh Mục</label>
-            <select class="form-control" id="category_id" name="category_id">
-              @foreach ($categories as $category)
-              <option value="{{ $category->id }}">{{ $category->name}}</option>}
-              option
-              @endforeach
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="name">Ảnh Mô Tả</label>
+            <label for="name">CV</label>
             <div class="well" data-bind="fileDrag: fileData">
               <div class="form-group row">
                 <div class="col-md-6">
@@ -92,10 +83,14 @@
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="">Mô Tả Chi Tiết</label>
-          <textarea name="description" id="description" class="form-control"></textarea>
-        </div>
+         <div class="form-group">
+            <label for="name">Email</label>
+            <input type="email" class="form-control" id="email" name="email"  placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label for="name">SĐT</label>
+            <input type="tel" class="form-control" id="phone" name="phone"  placeholder="Enter phome">
+          </div>
 
       </div>
 
@@ -104,7 +99,7 @@
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
-      <input type="hidden" name="id" id="eid" value="">
+<input type="hidden" name="id" id="eid" value="">
     </form>
   </div>
 </div>
@@ -113,52 +108,37 @@
 
 <!-- The Modal -->
 <div class="modal" id="staff-modal">
-  <div class="modal-dialog" style="max-width:850px;">
+  <div class="modal-dialog" style="max-width: 700px;">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Quản Lý Nhân Viên</h4>
+        <h4 class="modal-title">Thêm Mới Hoặc Cập Nhật</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
-      <form id="add-form" action="{{asset('/products')}}" method="POST" >
+      <form id="add-form" action="{{asset('/staff')}}" method="POST" >
         <!-- Modal body -->
         <div class="modal-body">
+          
+      </div>
 
-          <table class="table table-bordered" id="manager-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Dịch Vụ</th>
-                <th>Ảnh Mô Tả</th>
-                <th>Danh Mục</th>
-                <th>TT Nhà Cung Cấp</th>
-                <th>Trạng Thái</th>
-                <th>Hành Động</th>
-              </tr>
-            </thead>
-          </table>
-
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-        <input type="hidden" name="id" id="eid" value="">
-      </form>
-    </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+<input type="hidden" name="id" id="eid" value="">
+    </form>
   </div>
 </div>
-
+</div>
 
 @endsection
 
 @section('js')
 <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
-<script src="{{ asset('js/main/product.js') }}"></script>
+<script src="{{ asset('js/main/staff.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
 <script src="https://rawgit.com/adrotec/knockout-file-bindings/master/knockout-file-bindings.js"></script>
 

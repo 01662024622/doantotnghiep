@@ -10,6 +10,7 @@ use App\User;
 use App\Product;
 use App\Order;
 use App\Apartment;
+use App\Staff;
 
 class StatusController extends Controller
 {
@@ -55,6 +56,16 @@ class StatusController extends Controller
 	public function orders(Request $request, $id){
 		$data=Order::find($id)->update(array('role' => $request->status));
 		return $data;
+	}
+
+	public function staff($id){
+		$data= Staff::find($id);
+		if ($data->status==0) {
+			$data=Staff::find($id)->update(array('status' => 1));
+			return $data;
+		}
+		$data=Staff::find($id)->update(array('status' => 0));
+		return  $data;
 
 
 

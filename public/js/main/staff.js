@@ -1,11 +1,3 @@
-  CKEDITOR.replace( 'description' );
-  // CKEDITOR.replace( 'econtent' );
-  CKEDITOR.editorConfig = function( config ) {
-        // Define changes to default configuration here. For example:
-        // config.language = 'fr';
-        // config.uiColor = '#AADC6E';
-        config.width = '400px';
-      };
       $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -16,7 +8,7 @@ var dataTable = $('#users-table').DataTable({
   processing: true,
   serverSide: true,
   ajax:{ type: "GET",
-  url: "/api/v1/product/table",
+  url: "/api/v1/staff/table",
   error: function (xhr, ajaxOptions, thrownError) {
 
     if (xhr!=null) {
@@ -34,9 +26,8 @@ var dataTable = $('#users-table').DataTable({
   { data: 'id', name: 'id' },
   { data: 'name', name: 'name' },
   { data: 'image', name: 'image' },
-  { data: 'category_id', name: 'category_id' },
-  { data: 'providor', name: 'providor' },
-  // { data: 'created_at', name: 'created_at' },
+  { data: 'phone', name: 'phone' },
+  { data: 'email', name: 'email' },
   { data: 'status', name: 'status' },
   { data: 'action', name: 'action' },
   ]
@@ -74,9 +65,6 @@ $("#add-form").submit(function(e){
   },
   submitHandler: function(form) {
     var formData = new FormData(form);
-    var description = CKEDITOR.instances.description.getData();
-
-    formData.set('description',description);
     if ($('#image').val()=='') {
       formData.delete('image');
     }
@@ -112,13 +100,12 @@ $("#add-form").submit(function(e){
         // $('#editPost').modal('show');
         $.ajax({
           type: "GET",
-          url: "/products/"+id,
+          url: "/staff/"+id,
           success: function(response)
           {
-            CKEDITOR.instances.description.setData(response.description);
             $('#name').val(response.name);
-            $('#category_id').val(response.category_id);
-            $('#quantity').val(response.quantity);
+            $('#email').val(response.email);
+            $('#phone').val(response.phone);
             $('#eid').val(response.id);    
             $('#imgImage').attr('src',response.image);
             $('#imgImage').show();
@@ -128,42 +115,6 @@ $("#add-form").submit(function(e){
           }
         });
       }
-
-  // get data for form update
-  function staff(id) {
-    console.log(id);
-
-var manager = $('#manager-table').DataTable({
-  processing: true,
-  serverSide: true,
-  ajax:{ type: "GET",
-  url: "/api/v1/staff/manager/table/"+id,
-  error: function (xhr, ajaxOptions, thrownError) {
-
-    if (xhr!=null) {
-      if (xhr.responseJSON!=null) {
-        if (xhr.responseJSON.errors!=null) {
-          if (xhr.responseJSON.errors.permission!=null) {
-            location.reload();
-          }
-        }
-      }
-    }
-    // location.reload();
-  }},
-  columns: [
-  { data: 'id', name: 'id' },
-  { data: 'name', name: 'name' },
-  { data: 'image', name: 'image' },
-  { data: 'phone', name: 'phone' },
-  { data: 'email', name: 'email' },
-  { data: 'status', name: 'status' },
-  { data: 'action', name: 'action' },
-  ]
-});
-
-    }
-
 
 
 
@@ -187,15 +138,16 @@ var manager = $('#manager-table').DataTable({
         if (isConfirm) {
           $.ajax({
             type: "delete",
-            url: "products/"+id,
+            url: "staff/"+id,
             success: function(res)
             {
               if(!res.error) {
                 toastr.success('Success!');
-                $('#product-'+id).remove();
+                // $('#dt-'+id).remove();
                   //setTimeout(function () {
                     //location.reload();
                   //}, 1000)
+                  dataTable.ajax.reload();
                 }
               },
               error: function (xhr, ajaxOptions, thrownError) {
@@ -234,7 +186,7 @@ var manager = $('#manager-table').DataTable({
         // $('#editPost').modal('show');
         $.ajax({
           type: "GET",
-          url: "api/status/products/"+id,
+          url: "api/status/staff/"+id,
           success: function(response)
           {
           // location.reload();
@@ -252,7 +204,5 @@ var manager = $('#manager-table').DataTable({
         console.log('clear');
         $('#add-form')[0].reset(); 
         $('#eid').val(''); 
-        CKEDITOR.instances.description.setData('');
-
         $('#imgImage').hide();
       }
