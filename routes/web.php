@@ -51,8 +51,12 @@ Route::group(['prefix' => 'api/v1'], function() {
 	Route::get('orders/table', 'DataBaseApi\DataTableController@orders')->name('orders.api.data');
 	
 	Route::get('staff/table', 'DataBaseApi\DataTableController@staff')->name('staff.api.data');
+	Route::get('staff/table', 'DataBaseApi\DataTableController@staff')->name('staff.api.data');
 	Route::get('staff/manager/table/{id}', 'DataBaseApi\DataTableController@staffmanager')->name('staffv1.api.data');
 
+
+	Route::post('/product/orders/{id}', 'HomeController@oderProduct')->name('oder.product.api.data');
+	
 
 
 	Route::get('consts/table', 'DataBaseApi\AiController@consts')->name('consts.api.data');

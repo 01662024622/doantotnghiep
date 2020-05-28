@@ -37,8 +37,9 @@
       <th>SĐT</th>
       <th>Địa Chỉ</th>
       <th>Dịch vụ</th>
+      <th>Yêu Cầu NV</th>
+      <th>Thời gian tạo</th>
       <th>Trạng Thái</th>
-      <th>Hành Động</th>
     </tr>
   </thead>
 </table>

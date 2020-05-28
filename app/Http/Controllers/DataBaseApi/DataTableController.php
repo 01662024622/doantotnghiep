@@ -190,6 +190,7 @@ public function orders(){
 
 		}
 		$data = Order::select('orders.*');
+		// return $data;
 		// $products->user;
 		// return $data;
 
@@ -212,13 +213,24 @@ public function orders(){
 		->addColumn('address', function ($dt) {
 			$user = User::find($dt['user_id']);
 			$apartment = Apartment::find($user->apartment_id);
-			return $apartment->name;
+			return $user->room . "-".$apartment->name;
 
 		})
 		->addColumn('product', function ($dt) {
-			$product = Product::find($dt['products_id']);
+			$product = Product::find($dt['product_id']);
 			$user = User::find($product->user_id);
-			return $product->name."-".$user->name."-".$user->phone;
+			return $product->name;
+		
+
+		})
+
+		->addColumn('staffs', function ($dt) {
+			return 'xxx';
+		
+
+		})
+		->editColumn('created_at', function ($dt) {
+			return substr($dt['created_at'], 0, 10); 
 		
 
 		})

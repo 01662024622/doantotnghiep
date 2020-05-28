@@ -210,32 +210,56 @@
                                                                                         <h3 class="product-title">{{$product->name}}</h3>
                                                                                         <div class="rating">
                                                                                           <div class="stars">
-                                                                                            <span class="fa fa-star checked"></span>
-                                                                                            <span class="fa fa-star checked"></span>
-                                                                                            <span class="fa fa-star checked"></span>
-                                                                                            <span class="fa fa-star"></span>
-                                                                                            <span class="fa fa-star"></span>
-                                                                                          </div>
-                                                                                          <span class="review-no">{{$product->rate_number}} Lượt Đánh Giá</span>
-                                                                                        </div>
-                                                                                        <h4 class="price">Hãy Đề Xuất Nguyện Vọng Của Bạn Về Nhân Sự Mà Bạn Muốn:</h4>
-                                                                                        <p class="vote"></p>
-                                                                                        <div class="action">
-                                                                                          <button class="add-to-cart btn btn-default" type="button">Đặt Ngay</button>
-                                                                                          <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
-                                                                                        </div>
+                                                                                           @for ($i = 0; $i < 5; $i++)
+                                                                                           @if($product->rate>$i)
+
+
+                                                                                           <span class="fa fa-star checked"></span>
+                                                                                           @else 
+                                                                                           <span class="fa fa-star"></span>
+
+                                                                                           @endif
+                                                                                           @endfor
+                                                                                         </div>
+                                                                                         <span class="review-no">{{$product->rate_number}} Lượt Đánh Giá</span>
+                                                                                       </div>
+                                                                                       <h4 class="price">Hãy Đề Xuất Nguyện Vọng Của Bạn Về Nhân Sự Mà Bạn Muốn:</h4>
+                                                                                       @foreach ($staffs as $staff)
+                                                                                       <div class="vote">
+                                                                                        <span style="
+                                                                                        float: left; min-width: 150px"><a href="#">{{$staff->name}}</a></span>
+                                                                                        <span style="
+                                                                                        float: left;
+                                                                                        padding-left: 80px;
+                                                                                        "><div class="custom-control custom-switch">
+                                                                                          <input type="checkbox" class="custom-control-input" id="customSwitch{{$staff->id}}" staff-id="{{$staff->id}}">
+                                                                                          <label class="custom-control-label" for="customSwitch{{$staff->id}}"></label>
+                                                                                        </div></span>
+                                                                                      </div>
+                                                                                      @endforeach
+                                                                                      <br>
+                                                                                      <br>
+                                                                                      <br>
+                                                                                      <div class="form-group">
+                                                                                        <label for="exampleFormControlTextarea1">Ghi Chú</label>
+                                                                                        <textarea class="form-control" id="note" rows="3"></textarea>
+                                                                                      </div>
+                                                                                      <div class="action">
+                                                                                        <button class="add-to-cart btn btn-default" type="button" onclick="orderProduct({{$product->id}})">Đặt Ngay</button>
+                                                                                        <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
                                                                                       </div>
                                                                                     </div>
                                                                                   </div>
                                                                                 </div>
                                                                               </div>
+                                                                            </div>
 
 
-                                                                              @endsection
+                                                                            @endsection
 
-                                                                              @section('js')
-                                                                              <script src="{{ asset('js/main/orders.js') }}"></script>
-                                                                              <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
-                                                                              <script src="https://rawgit.com/adrotec/knockout-file-bindings/master/knockout-file-bindings.js"></script>
+                                                                            @section('js')
+                                                                            <script src="{{ asset('js/user/product.js') }}"></script>
+                                                                            <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
+                                                                            <script src="https://rawgit.com/adrotec/knockout-file-bindings/master/knockout-file-bindings.js"></script>
 
-                                                                              @endsection
+                                                                            @endsection

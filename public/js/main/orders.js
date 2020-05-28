@@ -16,6 +16,7 @@ var dataTable = $('#users-table').DataTable({
   { data: 'phone', name: 'phone' },
   { data: 'address', name: 'address' },
   { data: 'product', name: 'product' },
+  { data: 'staffs', name: 'staffs' },
   { data: 'created_at', name: 'created_at' },
   { data: 'status', name: 'status' },
   ]
