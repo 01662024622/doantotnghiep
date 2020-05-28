@@ -69,6 +69,10 @@ Route::group(['prefix' => 'api/status'], function() {
 
 	Route::post('users/{id}', 'status\StatusController@users')->name('users.api.status');
 	Route::post('orders/{id}', 'status\StatusController@orders')->name('orders.api.status');
+
+	Route::post('staffProduct', 'status\StatusController@staffProduct')->name('staffProduct.api.status');
+
+	Route::get('staff/{id}', 'status\StatusController@staff')->name('staff.api.status');
 	Route::get('staff/{id}', 'status\StatusController@staff')->name('staff.api.status');
 
 

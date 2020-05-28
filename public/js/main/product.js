@@ -128,12 +128,36 @@ $("#add-form").submit(function(e){
           }
         });
       }
+function changeStatusManager(id) {
 
+  $.ajax({
+          type: "POST",
+          url: "api/status/staffProduct",
+          data:{
+            product_id:$("#staff-product").val(),
+            staff_id:id,
+          },
+          success: function(response)
+          {
+          // location.reload();
+          manager.ajax.reload();
+          
+         dataTable.ajax.reload();
+           toastr.success('has been updated');
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+            toastr.error(thrownError);
+          }
+        });
+  // body...
+}
+var manager;
   // get data for form update
   function staff(id) {
+    $("#manager-table").dataTable().fnDestroy()
     console.log(id);
-
-var manager = $('#manager-table').DataTable({
+$('#staff-product').val(id);
+manager = $('#manager-table').DataTable({
   processing: true,
   serverSide: true,
   ajax:{ type: "GET",

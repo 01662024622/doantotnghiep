@@ -141,11 +141,10 @@
           </table>
 
         </div>
-
+  <input type="hidden" name="staff-product"  id="staff-product" value="">
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save</button>
         </div>
         <input type="hidden" name="id" id="eid" value="">
       </form>

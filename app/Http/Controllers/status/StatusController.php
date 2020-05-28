@@ -11,6 +11,7 @@ use App\Product;
 use App\Order;
 use App\Apartment;
 use App\Staff;
+use App\StaffProduct;
 
 class StatusController extends Controller
 {
@@ -70,4 +71,17 @@ class StatusController extends Controller
 
 
 	}
+	public function staffProduct(Request $request){
+		$staffProduct = $request->all();
+		$data= StaffProduct::where('staff_id',$staffProduct['staff_id'])->where('product_id',$staffProduct['product_id'])->first();
+		if ($data!=null) {
+			$data=Staff::find($data->id)->delete();
+			response()->json($data);
+		}
+		$data=StaffProduct::create($staffProduct);
+		return  response()->json($data);
+	}
+
+
+
 }

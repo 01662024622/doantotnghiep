@@ -315,7 +315,7 @@ public function staff(){
 		->make(true);
 	}
 	public function staffmanager($id){
-		$datas = Staff::select('staffs.*',DB::raw($id." as product_id"));
+		$datas = Staff::where('status',1)->select('staffs.*',DB::raw($id." as product_id"));
 		if (!Auth::user()->role=="providor"||!Auth::user()->role=="admin") {
 			Auth::logout();
 			return response()->json(['errors' => ['permission' => ['do not have permission.']]], 500);
@@ -343,12 +343,12 @@ public function staff(){
 			// $staffProduct=null;
 			if ($staffProduct==null) {
 				return '<div class="custom-control custom-switch">
-				<input type="checkbox" onchange="changeStatus('.$dt["id"].')" class="custom-control-input" id="customSwitch'.$dt["id"].')"">
+				<input type="checkbox" onchange="changeStatusManager('.$dt["id"].')" class="custom-control-input" id="customSwitch'.$dt["id"].')"">
 				<label class="custom-control-label" for="customSwitch'.$dt["id"].')""></label>
 				</div>';
 			}
 			return '<div class="custom-control custom-switch">
-			<input type="checkbox"  onchange="changeStatus('.$dt["id"].')" class="custom-control-input" id="customSwitchonchange'.$dt["id"].')"" checked>
+			<input type="checkbox"  onchange="changeStatusManager('.$dt["id"].')" class="custom-control-input" id="customSwitchonchange'.$dt["id"].')"" checked>
 			<label class="custom-control-label" for="customSwit'.$dt["id"].')""></label>
 			</div>';
 
